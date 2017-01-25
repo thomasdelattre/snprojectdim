@@ -3,8 +3,8 @@ include('includes/haut.inc.php');
 ?>
 
 <div >
-	<h1 class="col-md-offset-1 titreIndex">Bonjour M / Mme <?php echo "..."?></h1>
-	<h3 class="col-md-offset-1 titreIndex">Derni&egrave;res &eacute;valuations not&eacute;es</h3>
+	<h1 class=" titreIndex">Bonjour M / Mme <?php echo "..."?></h1>
+	<h3 class=" titreIndex">Derni&egrave;res &eacute;valuations not&eacute;es :</h3>
 </div>
 <div class="tableauEvaluations">
 	<table>
