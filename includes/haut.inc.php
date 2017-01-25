@@ -41,11 +41,11 @@
         <div id="header" >
            <a href="#" id="bouton-hamburger" class="glyphicon glyphicon-menu-hamburger"></a>
            <nav id="menu">  
-               <a class="menuPc" href="#">Accueil</a>
-               <a class="menuPc" href="#">Classes</a>
-               <a class="menuPc" href="#">Comp&eacute;tences</a>
-               <a class="menuPc" href="#">Evaluations</a>
-               <a class="menuPc" href="#">Etudiants</a>
+               <a class="menuPc" href="index.php">Accueil</a>
+               <a class="menuPc" href="classes.php">Classes</a>
+               <a class="menuPc" href="competences.php">Comp&eacute;tences</a>
+               <a class="menuPc" href="evaluations.php">Evaluations</a>
+               <a class="menuPc" href="etudiants.php">Etudiants</a>
            </nav>
        </div>
    </header>
