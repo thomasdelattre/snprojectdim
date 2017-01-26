@@ -8,6 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
     <title></title>
 
     <!-- Bootstrap Core CSS -->
