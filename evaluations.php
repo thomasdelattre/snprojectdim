@@ -2,7 +2,7 @@
 include('includes/haut.inc.php');
 ?>
 
-<div class="row" id="headerEvaluation">
+<div class="row" id="headerPage">
 	<h1 class=" titreIndex">Bonjour M / Mme <?php echo "..."?></h1>
 	<div id="comboEvaluation">
 		<div>
