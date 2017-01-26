@@ -108,6 +108,7 @@ tr:nth-child(odd){
 
 @media screen and (max-width: 800px)
 {
+
 	#comboEvaluation{
 	margin-left: 0;
 
@@ -166,6 +167,9 @@ tr:nth-child(odd){
 		margin-left: 20px;
 		color:white;
 		text-decoration: none;
+	}
+	#headerPage{
+		margin-left:5%;
 	}
 	#header{
 		padding-bottom: 50px;

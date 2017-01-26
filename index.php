@@ -2,7 +2,7 @@
 include('includes/haut.inc.php');
 ?>
 
-<div >
+<div id="headerPage">
 	<h1 class=" titreIndex">Bonjour M / Mme <?php echo "..."?></h1>
 	<h3 class=" titreIndex">Derni&egrave;res &eacute;valuations not&eacute;es :</h3>
 </div>

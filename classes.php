@@ -2,7 +2,7 @@
 include('includes/haut.inc.php');
 ?>
 
-<div class="row">
+<div class="row" id="headerPage">
 	<h1 class=" titreIndex">Bonjour M / Mme <?php echo "..."?></h1>
 	<button type="button" class="btn btn-primary" id="boutonAjoutClasse">Ajouter une classe</button>
 </div>
