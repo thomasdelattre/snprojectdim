@@ -5,42 +5,32 @@ include('includes/haut.inc.php');
 <div class="row" id="headerEvaluation">
 	<h1 class=" titreIndex">Bonjour M / Mme <?php echo "..."?></h1>
 	<div id="comboEvaluation">
-
-		<div class="dropdown">
-			<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-				Classes
-				<span class="caret"></span>
-			</button>
-			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+		<div>
+			<select class="btn btn-default">
+				<option>Classes</option>
 				<?php for($i=0;$i<10;$i++){ ?>
-				<li><a href="#"><?php echo "Classe ".($i+1); ?></a></li>
+				<option value="PA"><?php echo "Classe ".($i+1); ?></option>
 				<?php } ?>
-			</ul>
+			</select>
 		</div>
-
-		<div class="dropdown">
-			<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-				Evaluations
-				<span class="caret"></span>
-			</button>
-			<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+		<div>
+			<select class="btn btn-default">
+			<option>Evaluations</option>
 				<?php for($i=0;$i<10;$i++){ ?>
-				<li><a href="#"><?php echo "Evaluations ".($i+1); ?></a></li>
+				<option value="PA"><?php echo "Evaluations ".($i+1); ?></option>
 				<?php } ?>
-			</ul>
+			</select>
 		</div>
-
-		<button type="button" class="btn btn-primary">Ajouter une &eacute;valuation</button>
-
+		<div>
+			<button type="button" class="btn btn-primary">Ajouter une &eacute;valuation</button>
+		</div>
 		
 	</div>
 
-
-	<form>
-			<button type="button" class="btn btn-primary" id="boutonAjoutClasse">Evaluer</button>
-		</form>
-
 </div>
+
+
+
 <div class="tableauEvaluations row">
 	<table>
 		<tr>
@@ -60,22 +50,26 @@ include('includes/haut.inc.php');
 		//insérer fin de boucle
 		?>
 	</table>
-	<!-- Div contenant la pagination-->
-	<div class="divPagination">
-		<nav aria-label="Page navigation">
-			<ul class="pagination pagination-lg ">
+	<form>
+		<button type="button" class="btn btn-primary" id="boutonAjoutClasse">Evaluer</button>
+	</form>
+</div>
+<!-- Div contenant la pagination-->
+<div class="divPagination">
+	<nav aria-label="Page navigation">
+		<ul class="pagination pagination-lg ">
 
-				<!-- Si l'utilisateur n'est pas sur la premiere page, affiche le bouton de page precedente-->
-				<?php //if(isset($_GET['page']) && $_GET['page']!=1){ ?>
-				<li>
-					<a href="index.php?page=<?php //echo $_GET['page']-1 ?>" aria-label="Previous">
-						<span aria-hidden="true">&laquo;</span>
-					</a>
-				</li>
-				<?php //} ?>
+			<!-- Si l'utilisateur n'est pas sur la premiere page, affiche le bouton de page precedente-->
+			<?php //if(isset($_GET['page']) && $_GET['page']!=1){ ?>
+			<li>
+				<a href="index.php?page=<?php //echo $_GET['page']-1 ?>" aria-label="Previous">
+					<span aria-hidden="true">&laquo;</span>
+				</a>
+			</li>
+			<?php //} ?>
 
 
-				<?php 
+			<?php 
 			//on recupere le nombre de message afin de calculer le nombre de pages
 			//$query = 'SELECT count(id) AS nbreId FROM messages'; 
 			//$stmt=$pdo->query($query);
@@ -87,12 +81,12 @@ include('includes/haut.inc.php');
 
 			//on crée un bouton pour chaque page présente
 			//for($i=0;$i<$nbrePages;$i++){
-				?>
-				<li><a href="index.php?page=<?php //echo $i+1 ?>">  1 <!-- <?= $i+1 ?> -->  </a></li>
-				<?php //} ?>
+			?>
+			<li><a href="index.php?page=<?php //echo $i+1 ?>">  1 <!-- <?= $i+1 ?> -->  </a></li>
+			<?php //} ?>
 
-				<!-- Si l'utilisateur n'est pas sur la derniere page, affiche le bouton de page suivante -->
-				<?php 
+			<!-- Si l'utilisateur n'est pas sur la derniere page, affiche le bouton de page suivante -->
+			<?php 
 				//if(!isset($_GET['page']) || $_GET['page']<$nbrePages){ 
 				//if($nbreMessages>$mpp){?>
 				<li>
@@ -110,10 +104,10 @@ include('includes/haut.inc.php');
 			</ul>
 		</nav>
 	</div>
-</div>
 
 
 
-<?php
-include('includes/bas.inc.php');
-?>
+
+	<?php
+	include('includes/bas.inc.php');
+	?>

@@ -15,7 +15,13 @@ tr:nth-child(odd){
 
 #comboEvaluation div{
 	margin-right: 10px;
+	margin-top:20px;
+	margin-bottom:20px;
 }
+
+#comboEvaluation div select{
+	background-color: #fff;
+	}
 .btn-primary{
 	background-color: #58ACFA;
 	color:#000;
