@@ -150,7 +150,7 @@ tr:nth-child(odd){
 		font-size: 2em;
 		color:#fff;
 		margin-bottom: 7%;
-		box-shadow: 2px 2px 2px #fff;
+		box-shadow: 0 4px 2px -2px #fff;
 	}
 
 	#bouton-hamburger
