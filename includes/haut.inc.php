@@ -18,7 +18,7 @@
 
 <body id="page-top" class="index">
 <section>
-    <div class="container">
+    <div class="container-fluid">
         <div class="site-pusher">
 
     <!-- Header -->
