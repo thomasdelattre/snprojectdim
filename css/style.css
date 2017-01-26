@@ -136,7 +136,7 @@ tr:nth-child(odd){
 		position: absolute;
 		top: 0;
 		bottom: 0;
-		background-color: #fff;
+		background-color: #000;
 		height: 100%;
 		-moz-transform: translateX(-100%);
 		-ms-transform: translateX(-100%);
@@ -145,12 +145,12 @@ tr:nth-child(odd){
 	}
 	#menu a {
 		display: block;
-		height: 40px;
 		line-height: 40px;
 		text-align: center;
 		font-size: 2em;
-		color:black;
+		color:#fff;
 		margin-bottom: 7%;
+		box-shadow: 2px 2px 2px #fff;
 	}
 
 	#bouton-hamburger
