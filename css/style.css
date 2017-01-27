@@ -21,7 +21,7 @@ tr:nth-child(odd){
 
 #comboEvaluation div select{
 	background-color: #fff;
-	}
+}
 .btn-primary{
 	background-color: #58ACFA;
 	color:#000;
@@ -95,8 +95,9 @@ tr:nth-child(odd){
 	visibility: hidden;
 }
 .titreIndex{
-		margin-left:8%;
-	}
+	margin-left:8%;
+	margin-bottom: 50px;
+}
 .divPagination{
 	text-align: center;
 }
@@ -106,13 +107,37 @@ tr:nth-child(odd){
 	margin-right: 10%;
 }
 
-@media screen and (max-width: 800px)
-{
+#tableClasse tr:nth-child(odd){
+	background-color: #fff;
+}
 
-	#comboEvaluation{
-	margin-left: 0;
+#tableClasse{
+	width: 40%;
+	margin-left: 10%;
 
 }
+
+.labelClasse{
+	float:right;
+	margin-right: 20px;
+	margin-bottom: 20px;
+}
+.inputClasse{
+	width: 100%;
+	margin-bottom: 20px;
+}
+
+.boutonEnvoyerClasse{
+	float:right;
+}
+@media screen and (max-width: 800px)
+{
+	
+
+	#comboEvaluation{
+		margin-left: 0;
+
+	}
 	.tableauEvaluations table
 	{
 		margin-bottom: 20px;

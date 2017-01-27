@@ -4,6 +4,7 @@ include('includes/haut.inc.php');
 
 <div class="row" id="headerPage">
 	<h1 class=" titreIndex">Bonjour M / Mme <?php echo "..."?></h1>
+	<button type="button" class="btn btn-primary" id="boutonAjoutClasse">Ajouter une &eacute;valuation</button>
 	<div id="comboEvaluation">
 		<div>
 			<select class="btn btn-default">
@@ -15,18 +16,15 @@ include('includes/haut.inc.php');
 		</div>
 		<div>
 			<select class="btn btn-default">
-			<option>Evaluations</option>
+				<option>Evaluations</option>
 				<?php for($i=0;$i<10;$i++){ ?>
 				<option value="PA"><?php echo "Evaluations ".($i+1); ?></option>
 				<?php } ?>
 			</select>
 		</div>
-		<div>
-			<button type="button" class="btn btn-primary">Ajouter une &eacute;valuation</button>
-		</div>
+		
 		
 	</div>
-
 </div>
 
 
@@ -34,16 +32,24 @@ include('includes/haut.inc.php');
 <div class="tableauEvaluations row">
 	<table>
 		<tr>
-			<th>Comp&eacute;tence</th>
-			<th>Coefficient</th>
+			<th>Nom pr&eacute;nom</th>
+			<th>Comp&eacute;tence 1</th>
+			<th>Comp&eacute;tence 2</th>
+			<th>Comp&eacute;tence 3</th>
+			<th>Comp&eacute;tence 4</th>
+			<th>Note</th>
 		</tr>
 		<?php 
 		//insérer boucle avec requete
 		for($i=0;$i<10;$i++){
 			?>
 			<tr>
+				<td><?php echo "Nom prénom ".$i;//inserer valeurs ?></td>
 				<td><?php echo "Competence ".$i;//inserer valeurs ?></td>
-				<td><?php echo "Coefficient ".$i;//inserer valeurs ?></td>
+				<td><?php echo "Competence ".$i;//inserer valeurs ?></td>
+				<td><?php echo "Competence ".$i;//inserer valeurs ?></td>
+				<td><?php echo "Competence ".$i;//inserer valeurs ?></td>
+				<td><?php echo "Note ".$i;//inserer valeurs ?></td>
 			</tr>
 			<?php
 		}

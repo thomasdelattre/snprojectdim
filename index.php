@@ -9,9 +9,9 @@ include('includes/haut.inc.php');
 <div class="tableauEvaluations">
 	<table>
 		<tr>
-			<th>Date</th>
-			<th>Classe</th>
-			<th>Evaluation</th>
+			<th width="10%">Date</th>
+			<th width="45%">Classe</th>
+			<th width="45%">Evaluation</th>
 		</tr>
 		<?php 
 		//insérer boucle avec requete
