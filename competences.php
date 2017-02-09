@@ -1,9 +1,20 @@
 <?php
+include ('includes/connexion.inc.php');
 include('includes/haut.inc.php');
 ?>
 
 <div class="row" id="headerPage">
 	<h1 class=" titreIndex">Bonjour M / Mme <?php echo "..."?></h1>
+	<div id="comboEvaluation">
+	<div>
+			<select class="btn btn-default">
+				<option>Classes</option>
+				<?php for($i=0;$i<10;$i++){ ?>
+				<option value="PA"><?php echo "Classe ".($i+1); ?></option>
+				<?php } ?>
+			</select>
+		</div>
+		</div>
 	<a id="boutonAjoutClasse" class="btn btn-primary" data-toggle="modal" data-target="#modalAjoutCompetence">Ajouter une comp&eacute;tence</a>
 </div>
 
@@ -12,6 +23,7 @@ include('includes/haut.inc.php');
 	<div class="modal-dialog">
 
 		<div class="modal-content">
+
 			<div class="modal-header">
 				<!-- Entete du modal -->
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -50,12 +62,13 @@ include('includes/haut.inc.php');
 			<th>Coefficient</th>
 		</tr>
 		<?php 
-		//insérer boucle avec requete
-		for($i=0;$i<10;$i++){
+		$query="SELECT * FROM competence";
+		$stmt=$pdo->query($query);
+		while ($data = $stmt->fetch()) {
 			?>
 			<tr>
-				<td><?php echo "Competence ".$i;//inserer valeurs ?></td>
-				<td><?php echo "Coefficient ".$i;//inserer valeurs ?></td>
+				<td><?= $data['libelle'] ?></td>
+				<td><?= $data['coef'] ?></td>	
 			</tr>
 			<?php
 		}

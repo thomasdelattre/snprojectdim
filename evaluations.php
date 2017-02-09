@@ -1,4 +1,5 @@
 <?php
+include ('includes/connexion.inc.php');
 include('includes/haut.inc.php');
 ?>
 
@@ -40,16 +41,14 @@ include('includes/haut.inc.php');
 			<th>Note</th>
 		</tr>
 		<?php 
-		//insérer boucle avec requete
-		for($i=0;$i<10;$i++){
+		$query="SELECT etudiant.nom as nomE FROM competence INNER JOIN notes ON notes.idC=competence.idC INNER JOIN etudiant ON etudiant.idE=notes.idE";
+		$stmt=$pdo->query($query);
+		while ($data = $stmt->fetch()) {
 			?>
 			<tr>
-				<td><?php echo "Nom prénom ".$i;//inserer valeurs ?></td>
-				<td><?php echo "Competence ".$i;//inserer valeurs ?></td>
-				<td><?php echo "Competence ".$i;//inserer valeurs ?></td>
-				<td><?php echo "Competence ".$i;//inserer valeurs ?></td>
-				<td><?php echo "Competence ".$i;//inserer valeurs ?></td>
-				<td><?php echo "Note ".$i;//inserer valeurs ?></td>
+				<td><?php $data['nomE'] ?></td>
+				<td><?php //$data['description'] ?></td>	
+				<td><?php //$data['nbreEtudiants'] ?></td>
 			</tr>
 			<?php
 		}

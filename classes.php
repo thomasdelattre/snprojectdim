@@ -1,4 +1,5 @@
 <?php
+include ('includes/connexion.inc.php');
 include('includes/haut.inc.php');
 ?>
 
@@ -46,20 +47,19 @@ include('includes/haut.inc.php');
 <div class="tableauEvaluations row">
 	<table>
 		<tr>
-			<th width="40%">Classes</th>
-			<th width="20%">Nombre d'&eacute;l&egrave;ves</th>
-			<th width="20%">Nombre d'&eacute;valuations</th>
-			<th width="20%">Moyenne g&eacute;n&eacute;rale</th>
+			<th width="30%">Cours</th>
+			<th width="50%">Description</th>
+			<th width="20%">Nombre d'&eacute;tudiants</th>
 		</tr>
 		<?php 
-		//insérer boucle avec requete
-		for($i=0;$i<10;$i++){
+		$query="SELECT COUNT(idE) as nbreEtudiants, libelle, description FROM cours INNER JOIN appartenir ON appartenir.idC=cours.idC";
+		$stmt=$pdo->query($query);
+		while ($data = $stmt->fetch()) {
 			?>
 			<tr>
-				<td><?php echo "Classe ".$i;//inserer valeurs ?></td>
-				<td><?php echo "Nombre d'eleve ".$i;//inserer valeurs ?></td>
-				<td><?php echo "Nombre d'evaluation ".$i;//inserer valeurs ?></td>	
-				<td><?php echo "Moyenne generale ".$i;//inserer valeurs ?></td>
+				<td><?= $data['libelle'] ?></td>
+				<td><?= $data['description'] ?></td>	
+				<td><?= $data['nbreEtudiants'] ?></td>
 			</tr>
 			<?php
 		}

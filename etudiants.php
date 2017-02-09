@@ -77,9 +77,7 @@ include('includes/haut.inc.php');
 		//insérer fin de boucle
 		?>
 	</table>
-	<form>
-		<button type="button" class="btn btn-primary" id="boutonAjoutClasse">Evaluer</button>
-	</form>
+	
 </div>
 <!-- Div contenant la pagination-->
 <div class="divPagination">
