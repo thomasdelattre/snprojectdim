@@ -5,44 +5,8 @@ include('includes/haut.inc.php');
 
 <div class="row" id="headerPage">
 	<h1 class=" titreIndex">Bonjour M / Mme <?php echo "..."?></h1>
-	<a id="boutonAjoutClasse" class="btn btn-primary" data-toggle="modal" data-target="#modalAjoutClasse">Ajouter une classe</a>
+	<a id="boutonAjoutClasse" class="btn btn-primary" href="administration.php">Ajouter une classe</a>
 </div>
-
-<!-- Modal contenant l'ajout d'une classe -->
-<div class="modal fade" id="modalAjoutClasse" role="dialog">
-	<div class="modal-dialog">
-
-		<div class="modal-content">
-			<div class="modal-header">
-				<!-- Entete du modal -->
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title" style="text-align: center;">Ajout d'une classe</h4>
-			</div>
-			<form action="" id="formInscription" method="post">
-				<div class="modal-body" style="text-align: left; font-size: 1.1em">
-					<!-- Formulaire d'inscription avec le nom, prénom, pseudo, email et mot de passe -->
-
-					<div class="form-group">
-						<label for="exampleInputEmail1">Nom de la classe</label>
-						<input type="text" id="nomClasse" class="form-control" name="nomClasse" required placeholder="Classe 1">
-					</div>
-					<div class="form-group">
-						<label for="exampleInputEmail1">Description de la classe</label>
-						<textarea type="text" id="description" class="form-control" name="description" required placeholder="Classe de 3&egrave;me..."></textarea>
-					</div>
-
-				</div>
-				<div class="modal-footer">
-					<button class="btn btn-success" type="submit">Ajouter cette classe</button>
-
-					<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-				</div>
-			</form>
-		</div>
-
-	</div>
-</div>
-
 
 <div class="tableauEvaluations row">
 	<table>
@@ -52,14 +16,22 @@ include('includes/haut.inc.php');
 			<th width="20%">Nombre d'&eacute;tudiants</th>
 		</tr>
 		<?php 
-		$query="SELECT COUNT(appartenir.idC) as nbreEtudiants, libelle, description FROM cours INNER JOIN appartenir ON appartenir.idC=cours.idC";
+		$query="SELECT idC, libelle, description FROM cours";
 		$stmt=$pdo->query($query);
 		while ($data = $stmt->fetch()) {
 			?>
 			<tr>
 				<td><?= $data['libelle'] ?></td>
 				<td><?= $data['description'] ?></td>	
-				<td><?= $data['nbreEtudiants'] ?></td>
+				<td>
+                    <?php 
+                $queryN="SELECT COUNT(appartenir.idE) as nbreEtudiants FROM appartenir WHERE idC='".$data['idC']."'";
+                $stmtN=$pdo->query($queryN);
+		          while ($dataN = $stmtN->fetch()) {
+                      echo $dataN['nbreEtudiants'];
+                  }
+                    
+                    ?></td>
 			</tr>
 			<?php
 		}

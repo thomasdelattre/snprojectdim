@@ -7,22 +7,39 @@ include('includes/haut.inc.php');
 	<h1 class=" titreIndex">Bonjour M / Mme <?php echo "..."?></h1>
 	<button type="button" class="btn btn-primary" id="boutonAjoutClasse">Ajouter une &eacute;valuation</button>
 	<div id="comboEvaluation">
-		<div>
-			<select class="btn btn-default">
+			<form action="etudiants.php" method="get">
+            <select onchange="this.form.submit()" name="classe" class="btn btn-default fullWidth">
 				<option>Classes</option>
-				<?php for($i=0;$i<10;$i++){ ?>
-				<option value="PA"><?php echo "Classe ".($i+1); ?></option>
-				<?php } ?>
+                <?php 
+                $query="SELECT * FROM cours";
+                $stmt=$pdo->query($query);
+		          while ($data = $stmt->fetch()) {
+                ?>
+                 <?php if($data['idC']==$_GET['classe']) {?>
+                <option value="<?= $data['idC'] ?>" selected><?= $data['libelle'] ?></option>
+                <?php }else { ?> 
+                <option value="<?= $data['idC'] ?>"><?= $data['libelle'] ?></option>
+                
+                <?php } }?>
 			</select>
-		</div>
-		<div>
-			<select class="btn btn-default">
-				<option>Evaluations</option>
-				<?php for($i=0;$i<10;$i++){ ?>
-				<option value="PA"><?php echo "Evaluations ".($i+1); ?></option>
-				<?php } ?>
+		</form>
+				<form action="etudiants.php" method="get">
+            
+            <select onchange="this.form.submit()" name="classe" class="btn btn-default fullWidth">
+				<option>Classes</option>
+                <?php 
+                $query="SELECT * FROM cours";
+                $stmt=$pdo->query($query);
+		          while ($data = $stmt->fetch()) {
+                ?>
+                 <?php if($data['idC']==$_GET['classe']) {?>
+                <option value="<?= $data['idC'] ?>" selected><?= $data['libelle'] ?></option>
+                <?php }else { ?> 
+                <option value="<?= $data['idC'] ?>"><?= $data['libelle'] ?></option>
+                
+                <?php } }?>
 			</select>
-		</div>
+		</form>
 		
 		
 	</div>
