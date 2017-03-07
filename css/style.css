@@ -14,7 +14,7 @@ tr:nth-child(odd){
 }
 
 .fullWidth{
-    width: 100%;
+    width: 100% !important;
 }
 
 #ajoutAdmin{
@@ -246,4 +246,16 @@ tr:nth-child(odd){
 		height: 100%;
 	}
 
+}
+#tableauNotation tr:nth-child(odd){
+	background-color: #fff;
+}
+
+.sousTableauEvaluations tr:nth-child(odd){
+	background-color: #A4A4A4;
+}
+
+.marginPaddingNull {
+    margin:0;
+    padding:0;
 }

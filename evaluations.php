@@ -47,16 +47,20 @@ include('includes/haut.inc.php');
 
 
 
-<div class="tableauEvaluations row">
-	 <!-- <table style="font-size: 1.2em">
+<div class="tableauEvaluations row" >
+	 <table style="font-size: 1.2em">
 		<tr>
 			<th>Nom pr&eacute;nom</th>
 			<?php 
 			$query="SELECT libelle FROM competence";
 			$stmt=$pdo->query($query);
             $nbreC=0;
+             $comp=array();
 			while ($data = $stmt->fetch()) {
+                $comp[$nbreC]=$data['libelle'];
                 $nbreC++;
+               
+                
 				?>
                 
 				<th><?php echo $data['libelle'] ?></th>
@@ -66,7 +70,7 @@ include('includes/haut.inc.php');
 		</tr>
 		<?php 
 		//$query="SELECT etudiant.nom as nomE, etudiant.prenom as prenomE, note FROM competence INNER JOIN notes ON notes.idC=competence.idC INNER JOIN etudiant ON etudiant.idE=notes.idE";
-		$query="SELECT * FROM etudiant";
+		$query="SELECT * FROM etudiant ORDER BY nom";
 		
 		$stmt=$pdo->query($query);
 		while ($data = $stmt->fetch()) {
@@ -74,31 +78,55 @@ include('includes/haut.inc.php');
 			<tr>
 				<td><?php echo $data['nom']." ".$data['prenom'] ?></td>
 				<?php 
-				$queryN="SELECT note, competence.libelle FROM notes INNER JOIN etudiant ON etudiant.idE=notes.idE INNER JOIN competence ON competence.idC=notes.idC WHERE etudiant.idE='".$data['idE']."'";
+				$queryN="SELECT * FROM notes INNER JOIN competence ON notes.idC=competence.idC WHERE idE='".$data['idE']."'";
 				$stmtN=$pdo->query($queryN);
-                for($i=0;$i<$nbreC;$i++){
-				if ($dataN = $stmtN->fetch()) {
+                $i=0;
+                $notes=array();
+                $libelle=array();
+				while ($dataN = $stmtN->fetch()) {
+                    $notes[$i]=$dataN['note'];
+                    $libelle[$i]=$dataN['libelle'];
+                   
+                    $i++;
+				}
+            
+                
+            
+                for($n=0;$n<$nbreC;$n++){ 
+                $vide=false;
+                ?>
+                    <td>
+                        
+                    <?php
+                        for($u=0;$u<$nbreC;$u++){ 
+                        if(isset($libelle[$u]) && $libelle[$u]==$comp[$n]){
 					?>
-					<td><?php echo $dataN['note'].$dataN['libelle'] ?></td>
+					   
+                            <?php echo $notes[$u];$vide=true; ?> 
+                        
 					<?php
-				} else  {
-				?>
-				<td><?php echo "-"?></td>
-                <?php }} ?>
+                        }
+                        
+                        }
+                        if($vide==false){echo "-";$vide=true;}
+                        ?>
+                    </td>
+                <?php
+                    }
+                
+                
+                ?> 
 			</tr>
          
 			<?php
 		}
 		?>
 	</table> 
-    <?php 
     
-    ?>-->
-    
-     <table>
-        <tr>
-            <td>
-                <table>
+     <!-- <table id="tableauNotation">
+        <tr style="margin:0;padding:0" >
+            <td style="margin:0;padding:0">
+                <table style="margin:0;padding:0" class="fullWidth">
                 <tr>
                     <td>
                         Nom prénom
@@ -123,8 +151,8 @@ include('includes/haut.inc.php');
                 $stmt=$pdo->query($queryC);
 		          while ($data = $stmt->fetch()) {
                 ?>
-             <td valign="top">
-                 <table>
+             <td style="margin:0;padding:0" valign="top">
+                 <table style="margin:0;padding:0" class="fullWidth">
                      <tr>
                         <td><?= $data["libelle"] ?></td>
                      </tr>
@@ -141,10 +169,7 @@ include('includes/haut.inc.php');
             </td>
             <?php } ?>
         </tr>
-    </table> 
-	<form>
-		<button type="button" class="btn btn-primary" id="boutonAjoutClasse">Evaluer</button>
-	</form>
+    </table> -->
 </div>
 <!-- Div contenant la pagination-->
 <div class="divPagination">
