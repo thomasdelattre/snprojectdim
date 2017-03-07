@@ -1,59 +1,34 @@
 <?php
+include ('includes/connexion.inc.php');
 include('includes/haut.inc.php');
 ?>
 
 <div class="row" id="headerPage">
 	<h1 class=" titreIndex">Bonjour M / Mme <?php echo "..."?></h1>
 	<!-- data-backdrop="false" sur <a> pr probleme de modal -->
-	<a id="boutonAjoutClasse"  class="btn btn-primary" data-toggle="modal" data-target="#modalAjoutEtudiant">Ajouter un &eacute;tudiant</a>
+	<a id="boutonAjoutClasse"  class="btn btn-primary" href="administration.php">Ajouter un &eacute;tudiant</a>
 	<div id="comboEvaluation">
-		<div>
-			<select class="btn btn-default">
+		<form action="etudiants.php" method="get">
+            <label>Classe</label>
+            <select onchange="this.form.submit()" name="classe" class="btn btn-default fullWidth">
 				<option>Classes</option>
-				<?php for($i=0;$i<10;$i++){ ?>
-				<option value="PA"><?php echo "Classe ".($i+1); ?></option>
-				<?php } ?>
+                <?php 
+                $query="SELECT * FROM cours";
+                $stmt=$pdo->query($query);
+		          while ($data = $stmt->fetch()) {
+                ?>
+                 <?php if($data['idC']==$_GET['classe']) {?>
+                <option value="<?= $data['idC'] ?>" selected><?= $data['libelle'] ?></option>
+                <?php }else { ?> 
+                <option value="<?= $data['idC'] ?>"><?= $data['libelle'] ?></option>
+                
+                <?php } }?>
 			</select>
-		</div>
-	
+		</form>
+
 		
 	</div>
 
-</div>
-
-<!-- Modal contenant l'ajout d'une classe -->
-<div class="modal fade" id="modalAjoutEtudiant" role="dialog">
-	<div class="modal-dialog">
-
-		<div class="modal-content">
-			<div class="modal-header">
-				<!-- Entete du modal -->
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title" style="text-align: center;">Ajout d'un &eacute;tudiant</h4>
-			</div>
-			<form action="" id="formInscription" method="post">
-				<div class="modal-body" style="text-align: left; font-size: 1.1em">
-					<!-- Formulaire d'inscription avec le nom, prénom, pseudo, email et mot de passe -->
-
-					<div class="form-group">
-						<label for="exampleInputEmail1">Nom</label>
-						<input type="text" id="nom" class="form-control" name="nomClasse" required placeholder="">
-					</div>
-					<div class="form-group">
-						<label for="exampleInputEmail1">Pr&eacute;nom</label>
-						<input type="text" id="prenom" class="form-control" name="description" required placeholder=""></input>
-					</div>
-
-				</div>
-				<div class="modal-footer">
-					<button class="btn btn-success" type="submit">Ajouter cet &eacute;tudiant</button>
-
-					<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-				</div>
-			</form>
-		</div>
-
-	</div>
 </div>
 
 <div class="tableauEvaluations row">
@@ -64,13 +39,19 @@ include('includes/haut.inc.php');
 			<th width="40%">Pr&eacute;nom</th>
 		</tr>
 		<?php 
-		//insérer boucle avec requete
-		for($i=0;$i<10;$i++){
+        if(isset($_GET['classe'])){
+		  $query="SELECT * FROM etudiant inner join appartenir on appartenir.idE= etudiant.idE inner join cours on cours.idC=appartenir.idC where cours.idC='".$_GET['classe']."'";
+        }
+        else{
+            $query="SELECT * FROM etudiant inner join appartenir on appartenir.idE= etudiant.idE inner join cours on cours.idC=appartenir.idC";
+        }
+		$stmt=$pdo->query($query);
+		while ($data = $stmt->fetch()) {
 			?>
 			<tr>
-				<td><?php echo "Num ".$i;//inserer valeurs ?></td>
-				<td><?php echo "nom ".$i;//inserer valeurs ?></td>
-				<td><?php echo "prenom ".$i;//inserer valeurs ?></td>
+				<td><?= $data['idE'] ?></td>
+				<td><?= $data['nom'] ?></td>
+				<td><?= $data['prenom'] ?></td>	
 			</tr>
 			<?php
 		}

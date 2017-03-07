@@ -31,30 +31,100 @@ include('includes/haut.inc.php');
 
 
 <div class="tableauEvaluations row">
-	<table>
+	 <!-- <table style="font-size: 1.2em">
 		<tr>
 			<th>Nom pr&eacute;nom</th>
-			<th>Comp&eacute;tence 1</th>
-			<th>Comp&eacute;tence 2</th>
-			<th>Comp&eacute;tence 3</th>
-			<th>Comp&eacute;tence 4</th>
-			<th>Note</th>
+			<?php 
+			$query="SELECT libelle FROM competence";
+			$stmt=$pdo->query($query);
+            $nbreC=0;
+			while ($data = $stmt->fetch()) {
+                $nbreC++;
+				?>
+                
+				<th><?php echo $data['libelle'] ?></th>
+				<?php
+			}
+			?>
 		</tr>
 		<?php 
-		$query="SELECT etudiant.nom as nomE FROM competence INNER JOIN notes ON notes.idC=competence.idC INNER JOIN etudiant ON etudiant.idE=notes.idE";
+		//$query="SELECT etudiant.nom as nomE, etudiant.prenom as prenomE, note FROM competence INNER JOIN notes ON notes.idC=competence.idC INNER JOIN etudiant ON etudiant.idE=notes.idE";
+		$query="SELECT * FROM etudiant";
+		
 		$stmt=$pdo->query($query);
 		while ($data = $stmt->fetch()) {
 			?>
 			<tr>
-				<td><?php $data['nomE'] ?></td>
-				<td><?php //$data['description'] ?></td>	
-				<td><?php //$data['nbreEtudiants'] ?></td>
+				<td><?php echo $data['nom']." ".$data['prenom'] ?></td>
+				<?php 
+				$queryN="SELECT note, competence.libelle FROM notes INNER JOIN etudiant ON etudiant.idE=notes.idE INNER JOIN competence ON competence.idC=notes.idC WHERE etudiant.idE='".$data['idE']."'";
+				$stmtN=$pdo->query($queryN);
+                for($i=0;$i<$nbreC;$i++){
+				if ($dataN = $stmtN->fetch()) {
+					?>
+					<td><?php echo $dataN['note'].$dataN['libelle'] ?></td>
+					<?php
+				} else  {
+				?>
+				<td><?php echo "-"?></td>
+                <?php }} ?>
 			</tr>
+         
 			<?php
 		}
-		//insérer fin de boucle
 		?>
-	</table>
+	</table> 
+    <?php 
+    
+    ?>-->
+    
+     <table>
+        <tr>
+            <td>
+                <table>
+                <tr>
+                    <td>
+                        Nom prénom
+                    </td>
+                </tr>
+                    <?php
+                    $queryN="SELECT * FROM etudiant ORDER BY nom";
+                    $stmt=$pdo->query($query);
+		          while ($data = $stmt->fetch()) {
+                    ?>
+                <tr>
+                    <td>
+                        <?= $data['nom']." ".$data['prenom'] ?>
+                    </td>
+                </tr>
+                    <?php } ?>
+                </table>
+            </td>
+           
+                <?php 
+                $queryC="SELECT * FROM competence";
+                $stmt=$pdo->query($queryC);
+		          while ($data = $stmt->fetch()) {
+                ?>
+             <td valign="top">
+                 <table>
+                     <tr>
+                        <td><?= $data["libelle"] ?></td>
+                     </tr>
+                     <?php 
+                      $queryN="SELECT * FROM notes WHERE idC='".$data["idC"]."'";
+                      $stmtN=$pdo->query($queryN);
+		          while ($dataN = $stmtN->fetch()) {
+                     ?>
+                     <tr>
+                        <td><?= $dataN["note"] ?></td>
+                     </tr>
+                     <?php } ?>
+                 </table>
+            </td>
+            <?php } ?>
+        </tr>
+    </table> 
 	<form>
 		<button type="button" class="btn btn-primary" id="boutonAjoutClasse">Evaluer</button>
 	</form>

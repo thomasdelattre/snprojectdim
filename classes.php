@@ -52,7 +52,7 @@ include('includes/haut.inc.php');
 			<th width="20%">Nombre d'&eacute;tudiants</th>
 		</tr>
 		<?php 
-		$query="SELECT COUNT(idE) as nbreEtudiants, libelle, description FROM cours INNER JOIN appartenir ON appartenir.idC=cours.idC";
+		$query="SELECT COUNT(appartenir.idC) as nbreEtudiants, libelle, description FROM cours INNER JOIN appartenir ON appartenir.idC=cours.idC";
 		$stmt=$pdo->query($query);
 		while ($data = $stmt->fetch()) {
 			?>

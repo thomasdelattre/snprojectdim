@@ -13,6 +13,24 @@ tr:nth-child(odd){
 
 }
 
+.fullWidth{
+    width: 100%;
+}
+
+#ajoutAdmin{
+    margin-top: 30px;
+    width: 40%;
+    margin-left: 30%;
+}
+
+.textCenter{
+    text-align: center;
+}
+
+#ajoutAdmin tr:nth-child(odd){
+	background-color: #fff;
+}
+
 #comboEvaluation div{
 	margin-right: 10px;
 	margin-top:20px;
