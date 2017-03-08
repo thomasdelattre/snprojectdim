@@ -51,6 +51,24 @@ include('includes/haut.inc.php');
     </tr>
     <tr>
         <td>
+            <label>Classe</label>
+        </td>
+        <td>
+            <select name="classe" class="btn btn-default fullWidth">
+				<option>Classes</option>
+                <?php 
+                $query="SELECT * FROM cours";
+                $stmt=$pdo->query($query);
+		          while ($data = $stmt->fetch()) {
+                ?>
+                <option value="<?= $data['idC'] ?>"><?= $data['libelle'] ?></option>
+                
+                <?php } ?>
+			</select>
+        </td>
+    </tr>
+    <tr>
+        <td>
             <input type="submit" class="btn btn-success" />
         </td>
     </tr>

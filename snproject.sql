@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mar 07 Mars 2017 à 10:53
+-- Généré le :  Mer 08 Mars 2017 à 15:19
 -- Version du serveur :  5.7.11
 -- Version de PHP :  7.0.4
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `snproject`
 --
+CREATE DATABASE IF NOT EXISTS `snproject` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `snproject`;
 
 -- --------------------------------------------------------
 
@@ -26,23 +28,32 @@ SET time_zone = "+00:00";
 -- Structure de la table `appartenir`
 --
 
+DROP TABLE IF EXISTS `appartenir`;
 CREATE TABLE `appartenir` (
   `idC` int(11) NOT NULL,
   `idE` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 --
 -- Contenu de la table `appartenir`
 --
 
 INSERT INTO `appartenir` (`idC`, `idE`) VALUES
-(1, 1),
-(2, 27),
-(1, 28),
-(1, 29),
-(1, 30),
-(3, 31),
-(1, 32);
+(2, 1),
+(2, 3),
+(3, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `appliquer`
+--
+
+DROP TABLE IF EXISTS `appliquer`;
+CREATE TABLE `appliquer` (
+  `idComp` int(11) NOT NULL,
+  `idCours` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -50,24 +61,22 @@ INSERT INTO `appartenir` (`idC`, `idE`) VALUES
 -- Structure de la table `competence`
 --
 
+DROP TABLE IF EXISTS `competence`;
 CREATE TABLE `competence` (
   `idC` int(11) NOT NULL,
-  `libelle` char(200) DEFAULT NULL,
+  `libelle` char(200) CHARACTER SET latin1 DEFAULT NULL,
   `idP` int(11) DEFAULT NULL,
   `coef` int(2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 --
 -- Contenu de la table `competence`
 --
 
 INSERT INTO `competence` (`idC`, `libelle`, `idP`, `coef`) VALUES
-(1, 'Micro blog', 1, 2),
-(2, 'Hearthstone', 1, 3),
-(3, 'Voler', 1, 10),
-(4, 'Se téléporter', 1, 6),
-(5, 'pre', 1, 5),
-(6, 'POO', 1, 4);
+(1, 'Verbes irrÃ©guliers', 1, 1),
+(2, 'fefs', 1, 263),
+(3, 'expression', 1, 5);
 
 -- --------------------------------------------------------
 
@@ -75,21 +84,21 @@ INSERT INTO `competence` (`idC`, `libelle`, `idP`, `coef`) VALUES
 -- Structure de la table `cours`
 --
 
+DROP TABLE IF EXISTS `cours`;
 CREATE TABLE `cours` (
   `idC` int(11) NOT NULL,
-  `libelle` char(200) DEFAULT NULL,
-  `description` char(200) DEFAULT NULL,
+  `libelle` char(200) CHARACTER SET latin1 DEFAULT NULL,
+  `description` char(200) CHARACTER SET latin1 DEFAULT NULL,
   `idP` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 --
 -- Contenu de la table `cours`
 --
 
 INSERT INTO `cours` (`idC`, `libelle`, `description`, `idP`) VALUES
-(1, 'PHP', 'Elaboration d\'un micro blog en php', 1),
-(2, 'Java', 'Schmup', 1),
-(3, 'Java', 'Java', 1);
+(2, 'Anglais', 'Speak English very well', 1),
+(3, 'Francais', 'Commentaire de texte', 1);
 
 -- --------------------------------------------------------
 
@@ -97,26 +106,23 @@ INSERT INTO `cours` (`idC`, `libelle`, `description`, `idP`) VALUES
 -- Structure de la table `etudiant`
 --
 
+DROP TABLE IF EXISTS `etudiant`;
 CREATE TABLE `etudiant` (
   `idE` int(11) NOT NULL,
-  `nom` char(60) DEFAULT NULL,
-  `prenom` char(60) DEFAULT NULL,
-  `login` char(80) DEFAULT NULL,
-  `mdp` char(60) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `nom` char(60) CHARACTER SET latin1 DEFAULT NULL,
+  `prenom` char(60) CHARACTER SET latin1 DEFAULT NULL,
+  `login` char(80) CHARACTER SET latin1 DEFAULT NULL,
+  `mdp` char(60) CHARACTER SET latin1 DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 --
 -- Contenu de la table `etudiant`
 --
 
 INSERT INTO `etudiant` (`idE`, `nom`, `prenom`, `login`, `mdp`) VALUES
-(26, 'Thomas', 'Thomas', NULL, NULL),
-(27, 'Amrani', 'Ayman', NULL, NULL),
-(28, 'Essombe', 'Zacharie', NULL, NULL),
-(29, 'Mathias', 'Anais', 'Mathias.Anais', '123456'),
-(30, 'Hmain', 'Ismael', 'hmain.ismael', '123456'),
-(31, 'Leuleu', 'Sylvain', 'leuleu.sylvain', '123456'),
-(32, 'ayman', 'Admin', 'ayman.admin', 'ayman.admin');
+(1, 'Essombe', 'Zacharie', 'essombe.zacharie', 'essombe.zacharie'),
+(3, 'Delattre', 'Thomas', 'delattre.thomas', 'delattre.thomas'),
+(4, 'Ayman', 'Amrani', 'ayman.amrani', 'ayman.amrani');
 
 -- --------------------------------------------------------
 
@@ -124,20 +130,23 @@ INSERT INTO `etudiant` (`idE`, `nom`, `prenom`, `login`, `mdp`) VALUES
 -- Structure de la table `notes`
 --
 
+DROP TABLE IF EXISTS `notes`;
 CREATE TABLE `notes` (
-  `note` char(4) DEFAULT NULL,
+  `note` char(4) CHARACTER SET latin1 DEFAULT NULL,
   `dateN` date DEFAULT NULL,
   `idE` int(11) NOT NULL,
   `idC` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 --
 -- Contenu de la table `notes`
 --
 
 INSERT INTO `notes` (`note`, `dateN`, `idE`, `idC`) VALUES
-('vv', '2017-03-08', 1, 1),
-('vv', '2017-03-01', 2, 2);
+('rr', NULL, 1, 1),
+('vv', NULL, 3, 1),
+('vv', NULL, 3, 2),
+('vv', NULL, 4, 2);
 
 -- --------------------------------------------------------
 
@@ -145,21 +154,23 @@ INSERT INTO `notes` (`note`, `dateN`, `idE`, `idC`) VALUES
 -- Structure de la table `prof`
 --
 
+DROP TABLE IF EXISTS `prof`;
 CREATE TABLE `prof` (
   `idP` int(11) NOT NULL,
-  `nom` char(60) DEFAULT NULL,
-  `prenom` char(60) DEFAULT NULL,
-  `nomEtablissement` char(120) DEFAULT NULL,
-  `login` char(60) DEFAULT NULL,
-  `mdp` char(15) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `nom` char(60) CHARACTER SET latin1 DEFAULT NULL,
+  `prenom` char(60) CHARACTER SET latin1 DEFAULT NULL,
+  `nomEtablissement` char(120) CHARACTER SET latin1 DEFAULT NULL,
+  `login` char(60) CHARACTER SET latin1 DEFAULT NULL,
+  `mdp` char(15) CHARACTER SET latin1 DEFAULT NULL,
+  `sid` varchar(200) CHARACTER SET latin1 NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 --
 -- Contenu de la table `prof`
 --
 
-INSERT INTO `prof` (`idP`, `nom`, `prenom`, `nomEtablissement`, `login`, `mdp`) VALUES
-(1, 'Essombe', 'Zacharie', 'ST JO', NULL, NULL);
+INSERT INTO `prof` (`idP`, `nom`, `prenom`, `nomEtablissement`, `login`, `mdp`, `sid`) VALUES
+(1, 'Leuleu', 'Sylvain', 'IUT Calais', NULL, NULL, '');
 
 --
 -- Index pour les tables exportées
@@ -213,7 +224,7 @@ ALTER TABLE `prof`
 -- AUTO_INCREMENT pour la table `competence`
 --
 ALTER TABLE `competence`
-  MODIFY `idC` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idC` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT pour la table `cours`
 --
@@ -223,7 +234,7 @@ ALTER TABLE `cours`
 -- AUTO_INCREMENT pour la table `etudiant`
 --
 ALTER TABLE `etudiant`
-  MODIFY `idE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `idE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT pour la table `prof`
 --
