@@ -36,7 +36,12 @@ include('includes/haut.inc.php');
 			<th>Coefficient</th>
 		</tr>
 		<?php 
-		$query="SELECT competence.libelle as libelleComp, coef FROM competence INNER JOIN prof ON competence.idP=prof.idP INNER JOIN cours ON cours.idP=prof.idP WHERE cours.idC='".$_GET['classe']."'";
+		if(isset($_GET['classe']))
+			$classe=$_GET['classe'];
+		else
+			$classe="1";
+		$query="SELECT competence.libelle as libelleComp, coef FROM competence 
+		INNER JOIN prof ON competence.idP=prof.idP INNER JOIN cours ON cours.idP=prof.idP WHERE cours.idC='".$classe."'";
 		$stmt=$pdo->query($query);
 		while ($data = $stmt->fetch()) {
 			?>
