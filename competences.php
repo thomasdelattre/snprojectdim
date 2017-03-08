@@ -4,26 +4,7 @@ include('includes/haut.inc.php');
 ?>
 
 <div class="row" id="headerPage">
-	<h1 class=" titreIndex">Bonjour M / Mme <?php echo "..."?></h1>
-	<div id="comboEvaluation">
-		<form action="competences.php" method="get">
-            <label>Classe</label>
-            <select onchange="this.form.submit()" name="classe" class="btn btn-default fullWidth">
-				<option>Classes</option>
-                <?php 
-                $query="SELECT * FROM cours";
-                $stmt=$pdo->query($query);
-		          while ($data = $stmt->fetch()) {
-                ?>
-                 <?php if($data['idC']==$_GET['classe']) {?>
-                <option value="<?= $data['idC'] ?>" selected><?= $data['libelle'] ?></option>
-                <?php }else { ?> 
-                <option value="<?= $data['idC'] ?>"><?= $data['libelle'] ?></option>
-                
-                <?php } }?>
-			</select>
-		</form>
-		</div>
+    <h1 class=" titreIndex">Bonjour M / Mme <?php echo "..."?></h>
 	<a id="boutonAjoutClasse" class="btn btn-primary" href="administration.php">Ajouter une comp&eacute;tence</a>
 </div>
 
@@ -36,7 +17,8 @@ include('includes/haut.inc.php');
 			<th>Coefficient</th>
 		</tr>
 		<?php 
-		$query="SELECT competence.libelle as libelleComp, coef FROM competence INNER JOIN prof ON competence.idP=prof.idP INNER JOIN cours ON cours.idP=prof.idP WHERE cours.idC='".$_GET['classe']."'";
+		//$query="SELECT competence.libelle as libelleComp, coef FROM competence INNER JOIN prof ON competence.idP=prof.idP INNER JOIN cours ON cours.idP=prof.idP WHERE cours.idC='".$_GET['classe']."'";
+        $query="SELECT competence.libelle as libelleComp, coef FROM competence INNER JOIN prof ON competence.idP=prof.idP";
 		$stmt=$pdo->query($query);
 		while ($data = $stmt->fetch()) {
 			?>

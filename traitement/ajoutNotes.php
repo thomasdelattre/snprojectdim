@@ -32,13 +32,18 @@ foreach($updateNotes as $key => $notes){
         $stmt=$pdo->query($update);
         
 		while ($data = $stmt->fetch()) {
-            $query="UPDATE notes SET note=:note WHERE idE=:idE AND idC=:idC";
-            $prep = $pdo->prepare($query);
-            $prep->bindValue(':note', $notes);
-	        $prep->bindValue(':idE', $updateEtudiant[$key]);
-            $prep->bindValue(':idC', $data['idC']);
-            
-            $prep->execute();
+            $updateS="SELECT note FROM notes WHERE idE='".$updateEtudiant[$key]."' AND idC='".$data['idC']."'";
+            $stmtS=$pdo->query($updateS);
+            while ($dataS = $stmtS->fetch()) {
+                if($dataS['note']!=$notes){
+                    $query="UPDATE notes SET note=:note, dateN=NOW() WHERE idE=:idE AND idC=:idC";
+                    $prep = $pdo->prepare($query);
+                    $prep->bindValue(':note', $notes);
+                    $prep->bindValue(':idE', $updateEtudiant[$key]);
+                    $prep->bindValue(':idC', $data['idC']);
+                    $prep->execute();
+                }
+            }
         }
     }
 }
