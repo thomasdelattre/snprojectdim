@@ -7,7 +7,7 @@ include('includes/haut.inc.php');
 	<h1 class=" titreIndex">Bonjour M / Mme <?php echo "..."?></h1>
 	<button type="button" class="btn btn-primary" id="boutonAjoutClasse">Ajouter une &eacute;valuation</button>
 	<div id="comboEvaluation">
-			<form action="etudiants.php" method="get">
+        <form action="evaluations.php" method="get">
             <select onchange="this.form.submit()" name="classe" class="btn btn-default fullWidth">
 				<option>Classes</option>
                 <?php 
@@ -23,25 +23,6 @@ include('includes/haut.inc.php');
                 <?php } }?>
 			</select>
 		</form>
-				<form action="etudiants.php" method="get">
-            
-            <select onchange="this.form.submit()" name="classe" class="btn btn-default fullWidth">
-				<option>Classes</option>
-                <?php 
-                $query="SELECT * FROM cours";
-                $stmt=$pdo->query($query);
-		          while ($data = $stmt->fetch()) {
-                ?>
-                 <?php if($data['idC']==$_GET['classe']) {?>
-                <option value="<?= $data['idC'] ?>" selected><?= $data['libelle'] ?></option>
-                <?php }else { ?> 
-                <option value="<?= $data['idC'] ?>"><?= $data['libelle'] ?></option>
-                
-                <?php } }?>
-			</select>
-		</form>
-		
-		
 	</div>
 </div>
 
@@ -70,7 +51,13 @@ include('includes/haut.inc.php');
 		</tr>
 		<?php 
 		//$query="SELECT etudiant.nom as nomE, etudiant.prenom as prenomE, note FROM competence INNER JOIN notes ON notes.idC=competence.idC INNER JOIN etudiant ON etudiant.idE=notes.idE";
-		$query="SELECT * FROM etudiant ORDER BY nom";
+         if(isset($_GET['classe'])){
+             $query="SELECT * FROM etudiant INNER JOIN appartenir ON etudiant.idE=appartenir.idE WHERE idC='".$_GET['classe']."' ORDER BY nom";
+         }
+         else{
+             $query="SELECT * FROM etudiant ORDER BY nom";
+         }
+		
 		
 		$stmt=$pdo->query($query);
 		while ($data = $stmt->fetch()) {
@@ -123,53 +110,7 @@ include('includes/haut.inc.php');
 		?>
 	</table> 
     
-     <!-- <table id="tableauNotation">
-        <tr style="margin:0;padding:0" >
-            <td style="margin:0;padding:0">
-                <table style="margin:0;padding:0" class="fullWidth">
-                <tr>
-                    <td>
-                        Nom prénom
-                    </td>
-                </tr>
-                    <?php
-                    $queryN="SELECT * FROM etudiant ORDER BY nom";
-                    $stmt=$pdo->query($query);
-		          while ($data = $stmt->fetch()) {
-                    ?>
-                <tr>
-                    <td>
-                        <?= $data['nom']." ".$data['prenom'] ?>
-                    </td>
-                </tr>
-                    <?php } ?>
-                </table>
-            </td>
-           
-                <?php 
-                $queryC="SELECT * FROM competence";
-                $stmt=$pdo->query($queryC);
-		          while ($data = $stmt->fetch()) {
-                ?>
-             <td style="margin:0;padding:0" valign="top">
-                 <table style="margin:0;padding:0" class="fullWidth">
-                     <tr>
-                        <td><?= $data["libelle"] ?></td>
-                     </tr>
-                     <?php 
-                      $queryN="SELECT * FROM notes WHERE idC='".$data["idC"]."'";
-                      $stmtN=$pdo->query($queryN);
-		          while ($dataN = $stmtN->fetch()) {
-                     ?>
-                     <tr>
-                        <td><?= $dataN["note"] ?></td>
-                     </tr>
-                     <?php } ?>
-                 </table>
-            </td>
-            <?php } ?>
-        </tr>
-    </table> -->
+     
 </div>
 <!-- Div contenant la pagination-->
 <div class="divPagination">
