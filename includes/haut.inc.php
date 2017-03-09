@@ -2,13 +2,16 @@
 <html lang="fr">
 
 <head>
-
+    
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
      <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap-dropdown-checkbox.css">
+   
+
     <title></title>
 
     <!-- Bootstrap Core CSS -->

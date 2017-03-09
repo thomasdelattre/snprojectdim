@@ -11,7 +11,9 @@ include('includes/haut.inc.php');
             <select onchange="this.form.submit()" name="classe" class="btn btn-default fullWidth">
 				<option>Classes</option>
                 <?php 
-                $query="SELECT * FROM cours";
+                
+                    $query="SELECT * FROM cours";
+                
                 $stmt=$pdo->query($query);
 		          while ($data = $stmt->fetch()) {
                 ?>
@@ -33,7 +35,12 @@ include('includes/haut.inc.php');
 		<tr>
 			<th>Nom pr&eacute;nom</th>
 			<?php 
+            if(isset($_GET['classe'])){
+                    $query="SELECT * FROM competence INNER JOIN appliquer ON appliquer.idComp=competence.idC WHERE appliquer.idCours='".$_GET['classe']."'";
+                }
+                else{
 			$query="SELECT libelle FROM competence";
+                }
 			$stmt=$pdo->query($query);
             $nbreC=0;
              $comp=array();

@@ -22,13 +22,18 @@ $nbNote=0;
 			</select>
 		</form>
 	</div>
-    
     <form method="post" action="traitement/ajoutNotes.php">
 	 <table style="font-size: 1.2em">
 		<tr>
 			<th>Nom pr&eacute;nom</th>
+            <?php if(isset($_GET['classe'])){?>
 			<?php 
+			if(isset($_GET['classe'])){
+                    $query="SELECT * FROM competence INNER JOIN appliquer ON appliquer.idComp=competence.idC WHERE appliquer.idCours='".$_GET['classe']."'";
+                }
+                else{
 			$query="SELECT libelle FROM competence";
+                }
 			$stmt=$pdo->query($query);
             $nbreC=0;
              $comp=array();
@@ -43,6 +48,7 @@ $nbNote=0;
 				<?php
 			}
 			?>
+             <?php } ?>
 		</tr>
 		<?php 
 		//$query="SELECT etudiant.nom as nomE, etudiant.prenom as prenomE, note FROM competence INNER JOIN notes ON notes.idC=competence.idC INNER JOIN etudiant ON etudiant.idE=notes.idE";
@@ -112,6 +118,7 @@ $nbNote=0;
 	</table> 
     <input type="submit" id="boutonAjoutClasse" class="btn btn-success" value="Evaluer"/>
     </form>
+   
 </div>
 
 

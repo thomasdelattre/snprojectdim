@@ -54,17 +54,23 @@ include('includes/haut.inc.php');
             <label>Classe</label>
         </td>
         <td>
-            <select name="classe" class="btn btn-default fullWidth">
-				<option>Classes</option>
-                <?php 
-                $query="SELECT * FROM cours";
-                $stmt=$pdo->query($query);
-		          while ($data = $stmt->fetch()) {
-                ?>
-                <option value="<?= $data['idC'] ?>"><?= $data['libelle'] ?></option>
-                
-                <?php } ?>
-			</select>
+                     <div class="button-group" style="position: relative; top:0;">
+                        <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" style="width:100%;">
+                            <span style="float:left;font-size:1.3em">Classes</span> 
+                            <span style="float:right;margin-top:6px;" class="caret"></span>
+                         </button>
+                         
+                        <ul style="width:100%" class="dropdown-menu">
+                          
+                            <?php 
+                            $query="SELECT * FROM cours";
+                            $stmt=$pdo->query($query);
+                              while ($data = $stmt->fetch()) {
+                            ?>
+                            <li><a href="#" class="small" tabIndex="-1"><input name="classe[]" value="<?= $data['idC'] ?>" type="checkbox"/>&nbsp;<?= $data['libelle'] ?></a></li>
+                            <?php } ?>
+                        </ul>
+                    </div>
         </td>
     </tr>
     <tr>
