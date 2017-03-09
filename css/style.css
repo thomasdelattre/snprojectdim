@@ -2,6 +2,32 @@ body{
 	margin:0;
 }
 
+#tableauNotation tr:nth-child(odd){
+	background-color: #fff;
+}
+
+.sousTableauEvaluations tr:nth-child(odd){
+	background-color: #A4A4A4;
+}
+
+.marginPaddingNull {
+    margin:0;
+    padding:0 !important;
+}
+
+.fullHeight {
+    height:100%;
+}
+
+.inputTableau {
+    display: inline;
+    padding:0;
+    margin:0;
+    border:0;
+    background-color:rgba(0,0,0,0);
+    
+}
+
 tr:nth-child(odd){
 	background-color: #A4A4A4;
 }
@@ -247,14 +273,8 @@ tr:nth-child(odd){
 	}
 
 }
-#tableauNotation tr:nth-child(odd){
-	background-color: #fff;
-}
 
-.sousTableauEvaluations tr:nth-child(odd){
-	background-color: #A4A4A4;
-}
-
+<<<<<<< HEAD
 .marginPaddingNull {
     margin:0;
     padding:0;
@@ -263,3 +283,5 @@ tr:nth-child(odd){
 {
 	background-color: red !important;
 }
+=======
+>>>>>>> 7fbaaf4d2f781f6cbac399af0c389e56c10fb880

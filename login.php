@@ -1,5 +1,5 @@
 <?php
-include ('includes/connexion.inc.php');
+include ('includes/connexion.inc.co.php');
 setcookie("CookieConnection",'',time()+300);
 
 //Traitement de connexion 
