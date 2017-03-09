@@ -17,8 +17,17 @@ include('includes/haut.inc.php');
 			<th>Coefficient</th>
 		</tr>
 		<?php 
+<<<<<<< HEAD
 		//$query="SELECT competence.libelle as libelleComp, coef FROM competence INNER JOIN prof ON competence.idP=prof.idP INNER JOIN cours ON cours.idP=prof.idP WHERE cours.idC='".$_GET['classe']."'";
         $query="SELECT competence.libelle as libelleComp, coef FROM competence INNER JOIN prof ON competence.idP=prof.idP";
+=======
+		if(isset($_GET['classe']))
+			$classe=$_GET['classe'];
+		else
+			$classe="1";
+		$query="SELECT competence.libelle as libelleComp, coef FROM competence 
+		INNER JOIN prof ON competence.idP=prof.idP INNER JOIN cours ON cours.idP=prof.idP WHERE cours.idC='".$classe."'";
+>>>>>>> a2ae147c2169983aa618427d473f3d5759b7a80a
 		$stmt=$pdo->query($query);
 		while ($data = $stmt->fetch()) {
 			?>

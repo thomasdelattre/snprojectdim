@@ -51,7 +51,7 @@ include('includes/haut.inc.php');
                 
 				?>
                 
-				<th><?php echo $data['libelle'] ?></th>
+				<th><?php echo $data['libelle'];  ?></th>
 				<?php
 			}
 			?>

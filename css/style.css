@@ -274,3 +274,14 @@ tr:nth-child(odd){
 
 }
 
+<<<<<<< HEAD
+.marginPaddingNull {
+    margin:0;
+    padding:0;
+}
+.connection
+{
+	background-color: red !important;
+}
+=======
+>>>>>>> 7fbaaf4d2f781f6cbac399af0c389e56c10fb880
