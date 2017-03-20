@@ -7,9 +7,9 @@ $nbNote=0;
     <div id="comboEvaluation">
         <form action="notes.php" method="get">
             <select onchange="this.form.submit()" name="classe" class="btn btn-default fullWidth">
-				<option>Classes</option>
+				<option>Cours</option>
                 <?php 
-                $query="SELECT * FROM cours";
+                $query="SELECT * FROM cours WHERE idP=$idP";
                 $stmt=$pdo->query($query);
 		          while ($data = $stmt->fetch()) {
                 ?>
@@ -29,10 +29,10 @@ $nbNote=0;
             <?php if(isset($_GET['classe'])){?>
 			<?php 
 			if(isset($_GET['classe'])){
-                    $query="SELECT * FROM competence INNER JOIN appliquer ON appliquer.idComp=competence.idC WHERE appliquer.idCours='".$_GET['classe']."'";
+                    $query="SELECT * FROM competence INNER JOIN appliquer ON appliquer.idComp=competence.idC WHERE appliquer.idCours='".$_GET['classe']."' AND competence.idP=$idP";
                 }
                 else{
-			$query="SELECT libelle FROM competence";
+			         $query="SELECT libelle FROM competence WHERE idP=$idP";
                 }
 			$stmt=$pdo->query($query);
             $nbreC=0;

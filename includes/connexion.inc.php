@@ -14,8 +14,10 @@ if(isset($_COOKIE['CookieConnection']))
 
 	if($data=$prep->fetch())
 	{
-		 
+        $idP=$data['idP'];
 		$connecter=false;
+        $nomP=$data['nom'];
+        $prenomP=$data['prenom'];
 	}
 
 }

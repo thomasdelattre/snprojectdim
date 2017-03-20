@@ -4,15 +4,15 @@ include('includes/haut.inc.php');
 ?>
 
 <div class="row" id="headerPage">
-	<h1 class=" titreIndex">Bonjour M / Mme <?php echo "..."?></h1>
+	<h2 class=" titreIndex">Bonjour M / Mme <?=$nomP." ".$prenomP?></h2>
 	<button type="button" class="btn btn-primary" id="boutonAjoutClasse">Ajouter une &eacute;valuation</button>
 	<div id="comboEvaluation">
         <form action="evaluations.php" method="get">
             <select onchange="this.form.submit()" name="classe" class="btn btn-default fullWidth">
-				<option>Classes</option>
+				<option>Cours</option>
                 <?php 
                 
-                    $query="SELECT * FROM cours";
+                    $query="SELECT * FROM cours WHERE idP=$idP";
                 
                 $stmt=$pdo->query($query);
 		          while ($data = $stmt->fetch()) {
@@ -36,11 +36,8 @@ include('includes/haut.inc.php');
 			<th>Nom pr&eacute;nom</th>
 			<?php 
             if(isset($_GET['classe'])){
-                    $query="SELECT * FROM competence INNER JOIN appliquer ON appliquer.idComp=competence.idC WHERE appliquer.idCours='".$_GET['classe']."'";
-                }
-                else{
-			$query="SELECT libelle FROM competence";
-                }
+                    $query="SELECT * FROM competence INNER JOIN appliquer ON appliquer.idComp=competence.idC WHERE appliquer.idCours='".$_GET['classe']."' AND competence.idP=$idP";
+                
 			$stmt=$pdo->query($query);
             $nbreC=0;
              $comp=array();
@@ -54,16 +51,15 @@ include('includes/haut.inc.php');
 				<th><?php echo $data['libelle'];  ?></th>
 				<?php
 			}
+            }
 			?>
 		</tr>
 		<?php 
 		//$query="SELECT etudiant.nom as nomE, etudiant.prenom as prenomE, note FROM competence INNER JOIN notes ON notes.idC=competence.idC INNER JOIN etudiant ON etudiant.idE=notes.idE";
          if(isset($_GET['classe'])){
              $query="SELECT * FROM etudiant INNER JOIN appartenir ON etudiant.idE=appartenir.idE WHERE idC='".$_GET['classe']."' ORDER BY nom";
-         }
-         else{
-             $query="SELECT * FROM etudiant ORDER BY nom";
-         }
+         
+         
 		
 		
 		$stmt=$pdo->query($query);
@@ -114,6 +110,7 @@ include('includes/haut.inc.php');
          
 			<?php
 		}
+         }
 		?>
 	</table> 
     
