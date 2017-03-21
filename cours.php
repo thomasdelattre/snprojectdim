@@ -38,10 +38,7 @@ include('includes/haut.inc.php');
 		<?php 
          if(isset($_GET['classe'])){      
              $query="SELECT idC, libelle, description FROM cours INNER JOIN contenir ON cours.idC=contenir.idCours WHERE idClasse='".$_GET['classe']."' AND idP=$idP";
-        }
-        else{
-            $query="SELECT idC, libelle, description FROM cours WHERE idP=$idP";
-        }
+       
 		
 		$stmt=$pdo->query($query);
 		while ($data = $stmt->fetch()) {
@@ -60,10 +57,15 @@ include('includes/haut.inc.php');
                     ?></td>
 			</tr>
 			<?php
-		}
+		}}
 		//insérer fin de boucle
 		?>
 	</table>
+    <?php if(!isset($_GET['classe']) || $_GET['classe']=="Classe"){?>
+    <div>
+        <H1 style="color:red" class="textCenter">Veuillez choisir une classe</H1>
+    </div>
+    <?php } ?>
 	<!-- Div contenant la pagination-->
 	<div class="divPagination">
 		<nav aria-label="Page navigation">
