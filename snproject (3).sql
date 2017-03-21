@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mer 08 Mars 2017 à 15:19
+-- Généré le :  Mar 21 Mars 2017 à 15:27
 -- Version du serveur :  5.7.11
--- Version de PHP :  7.0.4
+-- Version de PHP :  5.6.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,8 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `snproject`
 --
-CREATE DATABASE IF NOT EXISTS `snproject` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `snproject`;
 
 -- --------------------------------------------------------
 
@@ -28,7 +26,6 @@ USE `snproject`;
 -- Structure de la table `appartenir`
 --
 
-DROP TABLE IF EXISTS `appartenir`;
 CREATE TABLE `appartenir` (
   `idC` int(11) NOT NULL,
   `idE` int(11) NOT NULL
@@ -39,9 +36,9 @@ CREATE TABLE `appartenir` (
 --
 
 INSERT INTO `appartenir` (`idC`, `idE`) VALUES
-(2, 1),
-(2, 3),
-(3, 4);
+(2, 16),
+(2, 17),
+(5, 19);
 
 -- --------------------------------------------------------
 
@@ -49,11 +46,41 @@ INSERT INTO `appartenir` (`idC`, `idE`) VALUES
 -- Structure de la table `appliquer`
 --
 
-DROP TABLE IF EXISTS `appliquer`;
 CREATE TABLE `appliquer` (
   `idComp` int(11) NOT NULL,
   `idCours` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `appliquer`
+--
+
+INSERT INTO `appliquer` (`idComp`, `idCours`) VALUES
+(2, 4),
+(2, 5);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `classe`
+--
+
+CREATE TABLE `classe` (
+  `idClasse` int(11) NOT NULL,
+  `libelle` varchar(250) NOT NULL,
+  `idP` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `classe`
+--
+
+INSERT INTO `classe` (`idClasse`, `libelle`, `idP`) VALUES
+(4, 'Test', 1),
+(2, 'TD1 année 2', 2),
+(5, 'Classe 1', 1),
+(6, 'Classe 2', 1),
+(7, 'Classe 3', 1);
 
 -- --------------------------------------------------------
 
@@ -61,7 +88,6 @@ CREATE TABLE `appliquer` (
 -- Structure de la table `competence`
 --
 
-DROP TABLE IF EXISTS `competence`;
 CREATE TABLE `competence` (
   `idC` int(11) NOT NULL,
   `libelle` char(200) CHARACTER SET latin1 DEFAULT NULL,
@@ -74,9 +100,31 @@ CREATE TABLE `competence` (
 --
 
 INSERT INTO `competence` (`idC`, `libelle`, `idP`, `coef`) VALUES
-(1, 'Verbes irrÃ©guliers', 1, 1),
-(2, 'fefs', 1, 263),
-(3, 'expression', 1, 5);
+(2, 'Test comp', 1, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `contenir`
+--
+
+CREATE TABLE `contenir` (
+  `idClasse` int(11) NOT NULL,
+  `idCours` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `contenir`
+--
+
+INSERT INTO `contenir` (`idClasse`, `idCours`) VALUES
+(4, 4),
+(5, 3),
+(5, 4),
+(5, 5),
+(6, 3),
+(7, 4),
+(7, 5);
 
 -- --------------------------------------------------------
 
@@ -84,7 +132,6 @@ INSERT INTO `competence` (`idC`, `libelle`, `idP`, `coef`) VALUES
 -- Structure de la table `cours`
 --
 
-DROP TABLE IF EXISTS `cours`;
 CREATE TABLE `cours` (
   `idC` int(11) NOT NULL,
   `libelle` char(200) CHARACTER SET latin1 DEFAULT NULL,
@@ -97,8 +144,9 @@ CREATE TABLE `cours` (
 --
 
 INSERT INTO `cours` (`idC`, `libelle`, `description`, `idP`) VALUES
-(2, 'Anglais', 'Speak English very well', 1),
-(3, 'Francais', 'Commentaire de texte', 1);
+(3, 'Cours 1', '', 1),
+(4, 'Cours 2', '', 1),
+(5, 'Cours 3', '', 1);
 
 -- --------------------------------------------------------
 
@@ -106,7 +154,6 @@ INSERT INTO `cours` (`idC`, `libelle`, `description`, `idP`) VALUES
 -- Structure de la table `etudiant`
 --
 
-DROP TABLE IF EXISTS `etudiant`;
 CREATE TABLE `etudiant` (
   `idE` int(11) NOT NULL,
   `nom` char(60) CHARACTER SET latin1 DEFAULT NULL,
@@ -120,9 +167,10 @@ CREATE TABLE `etudiant` (
 --
 
 INSERT INTO `etudiant` (`idE`, `nom`, `prenom`, `login`, `mdp`) VALUES
-(1, 'Essombe', 'Zacharie', 'essombe.zacharie', 'essombe.zacharie'),
-(3, 'Delattre', 'Thomas', 'delattre.thomas', 'delattre.thomas'),
-(4, 'Ayman', 'Amrani', 'ayman.amrani', 'ayman.amrani');
+(15, 'Delattre', 'Thomas', 'delattre.thomas', 'delattre.thomas'),
+(16, 'Delattre', 'Thomas', 'delattre.thomas', 'delattre.thomas'),
+(17, 'Essombe', 'Zacharie', 'essombe.zacharie', 'essombe.zacharie'),
+(19, 'Amrani', 'Ayman', 'amrani.ayman', 'amrani.ayman');
 
 -- --------------------------------------------------------
 
@@ -130,7 +178,6 @@ INSERT INTO `etudiant` (`idE`, `nom`, `prenom`, `login`, `mdp`) VALUES
 -- Structure de la table `notes`
 --
 
-DROP TABLE IF EXISTS `notes`;
 CREATE TABLE `notes` (
   `note` char(4) CHARACTER SET latin1 DEFAULT NULL,
   `dateN` date DEFAULT NULL,
@@ -143,10 +190,19 @@ CREATE TABLE `notes` (
 --
 
 INSERT INTO `notes` (`note`, `dateN`, `idE`, `idC`) VALUES
-('rr', NULL, 1, 1),
-('vv', NULL, 3, 1),
+('rr', NULL, 1, 4),
+('rr', NULL, 1, 7),
 ('vv', NULL, 3, 2),
-('vv', NULL, 4, 2);
+('rr', '2017-03-13', 3, 4),
+('vv', NULL, 4, 2),
+('vv', NULL, 4, 4),
+('rr', NULL, 4, 5),
+('rr', '2017-03-09', 4, 6),
+('vv', NULL, 4, 7),
+('rr', '2017-03-09', 6, 8),
+('vv', NULL, 12, 10),
+('rr', NULL, 12, 11),
+('vv', NULL, 13, 12);
 
 -- --------------------------------------------------------
 
@@ -154,14 +210,13 @@ INSERT INTO `notes` (`note`, `dateN`, `idE`, `idC`) VALUES
 -- Structure de la table `prof`
 --
 
-DROP TABLE IF EXISTS `prof`;
 CREATE TABLE `prof` (
   `idP` int(11) NOT NULL,
   `nom` char(60) CHARACTER SET latin1 DEFAULT NULL,
   `prenom` char(60) CHARACTER SET latin1 DEFAULT NULL,
   `nomEtablissement` char(120) CHARACTER SET latin1 DEFAULT NULL,
   `login` char(60) CHARACTER SET latin1 DEFAULT NULL,
-  `mdp` char(15) CHARACTER SET latin1 DEFAULT NULL,
+  `mdp` char(200) CHARACTER SET latin1 DEFAULT NULL,
   `sid` varchar(200) CHARACTER SET latin1 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
@@ -170,7 +225,8 @@ CREATE TABLE `prof` (
 --
 
 INSERT INTO `prof` (`idP`, `nom`, `prenom`, `nomEtablissement`, `login`, `mdp`, `sid`) VALUES
-(1, 'Leuleu', 'Sylvain', 'IUT Calais', NULL, NULL, '');
+(1, 'Leuleu', 'Sylvain', 'IUT Calais', 'leuleu.sylvain', 'ab4f63f9ac65152575886860dde480a1', 'f6ba06b4f3588584256d67c61539e38e'),
+(2, 'Delattre', 'Thomas', 'IUT Calais', 'delattre.thomas', 'ab4f63f9ac65152575886860dde480a1', '235739e8a9d893a8e08082c5d2c926ad');
 
 --
 -- Index pour les tables exportées
@@ -184,11 +240,23 @@ ALTER TABLE `appartenir`
   ADD KEY `FK_appartenir_idE` (`idE`);
 
 --
+-- Index pour la table `classe`
+--
+ALTER TABLE `classe`
+  ADD PRIMARY KEY (`idClasse`);
+
+--
 -- Index pour la table `competence`
 --
 ALTER TABLE `competence`
   ADD PRIMARY KEY (`idC`),
   ADD KEY `FK_COMPETENCE_idP` (`idP`);
+
+--
+-- Index pour la table `contenir`
+--
+ALTER TABLE `contenir`
+  ADD PRIMARY KEY (`idClasse`,`idCours`);
 
 --
 -- Index pour la table `cours`
@@ -221,25 +289,30 @@ ALTER TABLE `prof`
 --
 
 --
+-- AUTO_INCREMENT pour la table `classe`
+--
+ALTER TABLE `classe`
+  MODIFY `idClasse` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
 -- AUTO_INCREMENT pour la table `competence`
 --
 ALTER TABLE `competence`
-  MODIFY `idC` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idC` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT pour la table `cours`
 --
 ALTER TABLE `cours`
-  MODIFY `idC` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `idC` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT pour la table `etudiant`
 --
 ALTER TABLE `etudiant`
-  MODIFY `idE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT pour la table `prof`
 --
 ALTER TABLE `prof`
-  MODIFY `idP` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idP` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- Contraintes pour les tables exportées
 --
@@ -248,7 +321,6 @@ ALTER TABLE `prof`
 -- Contraintes pour la table `appartenir`
 --
 ALTER TABLE `appartenir`
-  ADD CONSTRAINT `FK_appartenir_idC` FOREIGN KEY (`idC`) REFERENCES `cours` (`idC`),
   ADD CONSTRAINT `FK_appartenir_idE` FOREIGN KEY (`idE`) REFERENCES `etudiant` (`idE`);
 
 --
