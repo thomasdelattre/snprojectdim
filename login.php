@@ -4,6 +4,7 @@ setcookie("CookieConnection",'',time()+300);
 
 //Traitement de connexion 
 $messagerr='';
+$idE="1";
 if(isset($_GET['usern']) && isset($_GET['mdp']))
 {  
     $email =$_GET['usern'];
@@ -28,10 +29,28 @@ if(isset($_GET['usern']) && isset($_GET['mdp']))
 
             header('Location:index.php');
         }
-        else
-            $messagerr="Cet utilisateur n'exsite pas !";
+
+else
+         {
+        $query = "SELECT * FROM etudiant where login='$email' && mdp='$mdp'";
+        $stmt = $pdo->query($query);
+        if($data=$stmt->fetch())
+        {
+            $idE=$data['idE'];
+            $sid=md5($email.$mdp.time());
+            setcookie("CookieConnectionEtu",$sid);
+
+            $query = 'UPDATE  etudiant SET sid=:sid where idE= :idE';
+                $prep = $pdo->prepare($query);
+                $prep->bindValue(':sid',$sid);
+                $prep->bindValue(':idE', $idE);
+                $prep->execute();
+
+            header('Location:indexEtu.php');      
+            }
+        }
     
-    }
+}
 }
 ?>
 <!DOCTYPE html>

@@ -14,13 +14,31 @@ if(isset($_COOKIE['CookieConnection']))
 
 	if($data=$prep->fetch())
 	{
-        $idP=$data['idP'];
+	    $idP=$data['idP'];
 		$connecter=false;
         $nomP=$data['nom'];
         $prenomP=$data['prenom'];
+
 	}
 
 }
 else
- header('Location:./login.php');
+if(isset($_COOKIE['CookieConnectionEtu']))
+{
+	$connecter=true;
+	$cookie=$_COOKIE['CookieConnectionEtu'];
+	$query = 'SELECT * FROM  etudiant where sid=:sid ';
+    $prep = $pdo->prepare($query);
+    $prep->bindValue(':sid',$cookie);
+    $prep->execute();
+
+	if($data=$prep->fetch())
+	{
+	    $idE=$data['idE'];
+		$connecter=false;
+        $nomE=$data['nom'];
+        $prenomE=$data['prenom'];
+
+	}
+}
 ?>

@@ -8,7 +8,7 @@ if (isset($_POST['nom'])  && !empty($_POST['nom']) && isset($_POST['prenom']) &&
 	$prep->bindValue(':nom', $_POST['nom']);
 	$prep->bindValue(':prenom', $_POST['prenom']);
     $prep->bindValue(':login', strtolower($_POST['nom'].".".$_POST['prenom']));
-     $prep->bindValue(':mdp', strtolower($_POST['nom'].".".$_POST['prenom']));
+     $prep->bindValue(':mdp', md5(strtolower($_POST['nom'].".".$_POST['prenom'])));
 	$prep->execute();
     
     

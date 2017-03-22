@@ -37,10 +37,29 @@ include('includes/haut.inc.php');
 			<th>Coefficient</th>
 		</tr>
 		<?php 
+
+		if(isset($_GET['classe']))
+			$classe=$_GET['classe'];
+		else
+			$classe="1";
+		$query="SELECT competence.libelle as libelleComp, coef FROM competence 
+		INNER JOIN prof ON competence.idP=prof.idP INNER JOIN cours ON cours.idP=prof.idP WHERE cours.idC='".$classe."'";
+
+		//$query="SELECT competence.libelle as libelleComp, coef FROM competence INNER JOIN prof ON competence.idP=prof.idP INNER JOIN cours ON cours.idP=prof.idP WHERE cours.idC='".$_GET['classe']."'";
+        $query="SELECT competence.libelle as libelleComp, coef FROM competence INNER JOIN prof ON competence.idP=prof.idP";
+
 		//$query="SELECT competence.libelle as libelleComp, coef FROM competence INNER JOIN prof ON competence.idP=prof.idP INNER JOIN cours ON cours.idP=prof.idP WHERE cours.idC='".$_GET['classe']."'";
         if(isset($_GET['classe'])){      
             $query="SELECT competence.libelle as libelleComp, coef FROM competence INNER JOIN prof ON competence.idP=prof.idP INNER JOIN appliquer ON competence.idC=appliquer.idComp WHERE idCours='".$_GET['classe']."' AND competence.idP=$idP";
+<<<<<<< HEAD
        
+=======
+        }
+        else{
+            $query="SELECT competence.libelle as libelleComp, coef FROM competence INNER JOIN prof ON competence.idP=prof.idP WHERE competence.idP=$idP";
+        }
+
+>>>>>>> 08f58080ebf59ae7bbb40cbc4282f4d366de098a
 		$stmt=$pdo->query($query);
 		while ($data = $stmt->fetch()) {
 			?>
