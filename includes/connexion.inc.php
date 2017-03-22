@@ -14,9 +14,9 @@ if(isset($_COOKIE['CookieConnection']))
 
 	if($data=$prep->fetch())
 	{
-		 header('Location:./index.php');
+		 
 		
-
+$connecter=false;
 	}
 
 }

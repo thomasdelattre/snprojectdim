@@ -5,9 +5,8 @@ include('includes/haut.inc.php');
 
 <div class="row" id="headerPage">
 	<h1 class=" titreIndex">Bonjour M / Mme <?php echo "..."?></h1>
-	<button type="button" class="btn btn-primary" id="boutonAjoutClasse">Ajouter une &eacute;valuation</button>
 	<div id="comboEvaluation">
-        <form action="evaluations.php" method="get">
+        <form action="indexEtu.php" method="get">
             <select onchange="this.form.submit()" name="classe" class="btn btn-default fullWidth">
 				<option>Classes</option>
                 <?php 
@@ -50,12 +49,11 @@ include('includes/haut.inc.php');
 			?>
 		</tr>
 		<?php 
-		//$query="SELECT etudiant.nom as nomE, etudiant.prenom as prenomE, note FROM competence INNER JOIN notes ON notes.idC=competence.idC INNER JOIN etudiant ON etudiant.idE=notes.idE";
          if(isset($_GET['classe'])){
-             $query="SELECT * FROM etudiant INNER JOIN appartenir ON etudiant.idE=appartenir.idE WHERE idC='".$_GET['classe']."' ORDER BY nom";
+             $query="SELECT * FROM etudiant INNER JOIN appartenir ON etudiant.idE=appartenir.idE WHERE idC='".$_GET['classe']."' and etudiant.idE='".$idE."' ORDER BY nom";
          }
          else{
-             $query="SELECT * FROM etudiant ORDER BY nom";
+             $query="SELECT * FROM etudiant where idE = $idE ORDER BY nom";
          }
 		
 		
@@ -65,7 +63,7 @@ include('includes/haut.inc.php');
 			<tr>
 				<td><?php echo $data['nom']." ".$data['prenom'] ?></td>
 				<?php 
-				$queryN="SELECT * FROM notes INNER JOIN competence ON notes.idC=competence.idC WHERE idE='".$data['idE']."'";
+				$queryN="SELECT * FROM notes INNER JOIN competence ON notes.idC=competence.idC WHERE idE=$idE";
 				$stmtN=$pdo->query($queryN);
                 $i=0;
                 $notes=array();
@@ -112,12 +110,11 @@ include('includes/haut.inc.php');
     
      
 </div>
-<!-- Div contenant la pagination-->
 <div class="divPagination">
 	<nav aria-label="Page navigation">
 		<ul class="pagination pagination-lg ">
 
-			<!-- Si l'utilisateur n'est pas sur la premiere page, affiche le bouton de page precedente-->
+			
 			<?php //if(isset($_GET['page']) && $_GET['page']!=1){ ?>
 			<li>
 				<a href="index.php?page=<?php //echo $_GET['page']-1 ?>" aria-label="Previous">
