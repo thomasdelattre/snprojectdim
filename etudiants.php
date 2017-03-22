@@ -40,7 +40,7 @@ include('includes/haut.inc.php');
 		</tr>
 		<?php 
         if(isset($_GET['classe'])){
-		  $query="SELECT * FROM etudiant inner join appartenir on appartenir.idE= etudiant.idE inner join cours on cours.idC=appartenir.idC where cours.idC='".$_GET['classe']."'";
+		  $query="SELECT * FROM etudiant inner join appartenir on appartenir.idE= etudiant.idE inner join classe on classe.idClasse=appartenir.idC where classe.idClasse='".$_GET['classe']."'";
         
 		$stmt=$pdo->query($query);
 		while ($data = $stmt->fetch()) {

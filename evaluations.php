@@ -7,8 +7,8 @@ include('includes/haut.inc.php');
 	<h2 class=" titreIndex">Bonjour M / Mme <?=$nomP." ".$prenomP?></h2>
 	<button type="button" class="btn btn-primary" id="boutonAjoutClasse">Ajouter une &eacute;valuation</button>
 	<div id="comboEvaluation">
-        <form action="evaluations.php" method="get" style="display:flex;flex-direction:row">
-            <select name="classe" class="btn btn-default fullWidth">
+        <form action="evaluations.php"  method="get" style="display:flex;flex-direction:row">
+            <select name="classe" onchange="this.form.submit()" class="btn btn-default fullWidth">
 				<option>Classe</option>
                 <?php 
                 
@@ -24,11 +24,15 @@ include('includes/haut.inc.php');
                 
                 <?php } }?>
 			</select>
-            <select name="cours" class="btn btn-default fullWidth">
+		</form>
+        <?php if(isset($_GET['classe'])){ ?>
+        <form action="evaluations.php" onchange="this.form.submit()" method="get" >
+            <input type="hidden" name="classe" value="<?=$_GET['classe'] ?>" />
+            <select name="cours" onchange="this.form.submit()" class="btn btn-default fullWidth">
 				<option>Cours</option>
                 <?php 
                 
-                    $query="SELECT * FROM cours WHERE idP=$idP";
+                    $query="SELECT * FROM cours INNER JOIN contenir ON cours.idC=contenir.idCours WHERE contenir.idClasse='".$_GET['classe']."' AND idP=$idP";
                 
                 $stmt=$pdo->query($query);
 		          while ($data = $stmt->fetch()) {
@@ -40,14 +44,15 @@ include('includes/haut.inc.php');
                 
                 <?php } }?>
 			</select>
-             <input type="submit" class="btn btn-success" value="Rechercher" />
-		</form>
+        </form>
+        <?php } ?>
 	</div>
 </div>
 
 
 
 <div class="tableauEvaluations row" >
+     <?php if(isset($_GET['cours'])){ ?>
 	 <table style="font-size: 1.2em">
 		<tr>
 			<th>Nom pr&eacute;nom</th>
@@ -130,7 +135,11 @@ include('includes/haut.inc.php');
          }
 		?>
 	</table> 
-    
+    <?php }else if(!isset($_GET['classe'])){ ?>
+        <h1 style="color:red" class="textCenter">Veuillez selectionner une classe</h1>
+    <?php }else if(!isset($_GET['cours'])){ ?>
+        <h1 style="color:red" class="textCenter">Veuillez selectionner un cours</h1>
+    <?php } ?>
      
 </div>
 <!-- Div contenant la pagination-->

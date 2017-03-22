@@ -40,10 +40,7 @@ include('includes/haut.inc.php');
 		//$query="SELECT competence.libelle as libelleComp, coef FROM competence INNER JOIN prof ON competence.idP=prof.idP INNER JOIN cours ON cours.idP=prof.idP WHERE cours.idC='".$_GET['classe']."'";
         if(isset($_GET['classe'])){      
             $query="SELECT competence.libelle as libelleComp, coef FROM competence INNER JOIN prof ON competence.idP=prof.idP INNER JOIN appliquer ON competence.idC=appliquer.idComp WHERE idCours='".$_GET['classe']."' AND competence.idP=$idP";
-        }
-        else{
-            $query="SELECT competence.libelle as libelleComp, coef FROM competence INNER JOIN prof ON competence.idP=prof.idP WHERE competence.idP=$idP";
-        }
+       
 		$stmt=$pdo->query($query);
 		while ($data = $stmt->fetch()) {
 			?>
@@ -52,9 +49,10 @@ include('includes/haut.inc.php');
 				<td><?= $data['coef'] ?></td>	
 			</tr>
 			<?php
-		}
+		}}
 		//insérer fin de boucle
 		?>
+        
 	</table>
 	<!-- Div contenant la pagination-->
 	<div class="divPagination">
