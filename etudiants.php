@@ -4,7 +4,7 @@ include('includes/haut.inc.php');
 ?>
 
 <div class="row" id="headerPage">
-	<h1 class=" titreIndex">Bonjour M / Mme <?php echo "..."?></h1>
+	<h2 class=" titreIndex">Bonjour M / Mme <?=$nomP." ".$prenomP?></h2>
 	<!-- data-backdrop="false" sur <a> pr probleme de modal -->
 	<a id="boutonAjoutClasse"  class="btn btn-primary" href="administration.php">Ajouter un &eacute;tudiant</a>
 	<div id="comboEvaluation">
@@ -13,14 +13,14 @@ include('includes/haut.inc.php');
             <select onchange="this.form.submit()" name="classe" class="btn btn-default fullWidth">
 				<option>Classes</option>
                 <?php 
-                $query="SELECT * FROM cours";
+                $query="SELECT * FROM classe WHERE idP=$idP";
                 $stmt=$pdo->query($query);
 		          while ($data = $stmt->fetch()) {
                 ?>
-                 <?php if($data['idC']==$_GET['classe']) {?>
-                <option value="<?= $data['idC'] ?>" selected><?= $data['libelle'] ?></option>
+                 <?php if($data['idClasse']==$_GET['classe']) {?>
+                <option value="<?= $data['idClasse'] ?>" selected><?= $data['libelle'] ?></option>
                 <?php }else { ?> 
-                <option value="<?= $data['idC'] ?>"><?= $data['libelle'] ?></option>
+                <option value="<?= $data['idClasse'] ?>"><?= $data['libelle'] ?></option>
                 
                 <?php } }?>
 			</select>
@@ -41,10 +41,7 @@ include('includes/haut.inc.php');
 		<?php 
         if(isset($_GET['classe'])){
 		  $query="SELECT * FROM etudiant inner join appartenir on appartenir.idE= etudiant.idE inner join cours on cours.idC=appartenir.idC where cours.idC='".$_GET['classe']."'";
-        }
-        else{
-            $query="SELECT * FROM etudiant inner join appartenir on appartenir.idE= etudiant.idE inner join cours on cours.idC=appartenir.idC";
-        }
+        
 		$stmt=$pdo->query($query);
 		while ($data = $stmt->fetch()) {
 			?>
@@ -55,7 +52,7 @@ include('includes/haut.inc.php');
 			</tr>
 			<?php
 		}
-		//insérer fin de boucle
+        }
 		?>
 	</table>
 	

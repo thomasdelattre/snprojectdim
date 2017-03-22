@@ -46,13 +46,7 @@
         <div id="header" >
            <a href="#" id="bouton-hamburger" class="glyphicon glyphicon-menu-hamburger"></a>
            <nav id="menu">  
-               <a class="menuPc" href="index.php">Accueil</a>
-               <a class="menuPc" href="cours.php">Cours</a>
-               <a class="menuPc" href="competences.php">Comp&eacute;tences</a>
-               <a class="menuPc" href="evaluations.php">Evaluations</a>
-               <a class="menuPc" href="etudiants.php">Etudiants</a>
-               <a class="menuPc" href="administration.php">Administration</a>
-               <a class="menuPc" href="notes.php">Notation</a>
+               
            </nav>
        </div>
    </header>

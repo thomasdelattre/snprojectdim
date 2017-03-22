@@ -7,9 +7,9 @@ $nbNote=0;
     <div id="comboEvaluation">
         <form action="notes.php" method="get">
             <select onchange="this.form.submit()" name="classe" class="btn btn-default fullWidth">
-				<option>Classes</option>
+				<option>Cours</option>
                 <?php 
-                $query="SELECT * FROM cours";
+                $query="SELECT * FROM cours WHERE idP=$idP";
                 $stmt=$pdo->query($query);
 		          while ($data = $stmt->fetch()) {
                 ?>
@@ -22,13 +22,18 @@ $nbNote=0;
 			</select>
 		</form>
 	</div>
-    
     <form method="post" action="traitement/ajoutNotes.php">
 	 <table style="font-size: 1.2em">
 		<tr>
 			<th>Nom pr&eacute;nom</th>
+            <?php if(isset($_GET['classe'])){?>
 			<?php 
-			$query="SELECT libelle FROM competence";
+			if(isset($_GET['classe'])){
+                    $query="SELECT * FROM competence INNER JOIN appliquer ON appliquer.idComp=competence.idC WHERE appliquer.idCours='".$_GET['classe']."' AND competence.idP=$idP";
+                }
+                else{
+			         $query="SELECT libelle FROM competence WHERE idP=$idP";
+                }
 			$stmt=$pdo->query($query);
             $nbreC=0;
              $comp=array();
@@ -43,6 +48,7 @@ $nbNote=0;
 				<?php
 			}
 			?>
+             <?php } ?>
 		</tr>
 		<?php 
 		//$query="SELECT etudiant.nom as nomE, etudiant.prenom as prenomE, note FROM competence INNER JOIN notes ON notes.idC=competence.idC INNER JOIN etudiant ON etudiant.idE=notes.idE";
@@ -112,6 +118,7 @@ $nbNote=0;
 	</table> 
     <input type="submit" id="boutonAjoutClasse" class="btn btn-success" value="Evaluer"/>
     </form>
+   
 </div>
 
 

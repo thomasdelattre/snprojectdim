@@ -4,24 +4,43 @@ include('includes/haut.inc.php');
 ?>
 
 <div class="row" id="headerPage">
-	<h1 class=" titreIndex">Bonjour M / Mme <?php echo "..."?></h1>
+	<h2 class=" titreIndex">Bonjour M / Mme <?=$nomP." ".$prenomP?></h2>
 	<button type="button" class="btn btn-primary" id="boutonAjoutClasse">Ajouter une &eacute;valuation</button>
 	<div id="comboEvaluation">
-        <form action="evaluations.php" method="get">
-            <select onchange="this.form.submit()" name="classe" class="btn btn-default fullWidth">
-				<option>Classes</option>
+        <form action="evaluations.php" method="get" style="display:flex;flex-direction:row">
+            <select name="classe" class="btn btn-default fullWidth">
+				<option>Classe</option>
                 <?php 
-                $query="SELECT * FROM cours";
+                
+                    $query="SELECT * FROM classe WHERE idP=$idP";
+                
                 $stmt=$pdo->query($query);
 		          while ($data = $stmt->fetch()) {
                 ?>
-                 <?php if($data['idC']==$_GET['classe']) {?>
+                 <?php if($data['idClasse']==$_GET['classe']) {?>
+                <option value="<?= $data['idClasse'] ?>" selected><?= $data['libelle'] ?></option>
+                <?php }else { ?> 
+                <option value="<?= $data['idClasse'] ?>"><?= $data['libelle'] ?></option>
+                
+                <?php } }?>
+			</select>
+            <select name="cours" class="btn btn-default fullWidth">
+				<option>Cours</option>
+                <?php 
+                
+                    $query="SELECT * FROM cours WHERE idP=$idP";
+                
+                $stmt=$pdo->query($query);
+		          while ($data = $stmt->fetch()) {
+                ?>
+                 <?php if($data['idC']==$_GET['cours']) {?>
                 <option value="<?= $data['idC'] ?>" selected><?= $data['libelle'] ?></option>
                 <?php }else { ?> 
                 <option value="<?= $data['idC'] ?>"><?= $data['libelle'] ?></option>
                 
                 <?php } }?>
 			</select>
+             <input type="submit" class="btn btn-success" value="Rechercher" />
 		</form>
 	</div>
 </div>
@@ -33,7 +52,9 @@ include('includes/haut.inc.php');
 		<tr>
 			<th>Nom pr&eacute;nom</th>
 			<?php 
-			$query="SELECT libelle FROM competence";
+            if(isset($_GET['cours'])){
+                    $query="SELECT * FROM competence INNER JOIN appliquer ON appliquer.idComp=competence.idC WHERE appliquer.idCours='".$_GET['cours']."' AND competence.idP=$idP";
+                
 			$stmt=$pdo->query($query);
             $nbreC=0;
              $comp=array();
@@ -47,16 +68,15 @@ include('includes/haut.inc.php');
 				<th><?php echo $data['libelle'];  ?></th>
 				<?php
 			}
+            }
 			?>
 		</tr>
 		<?php 
 		//$query="SELECT etudiant.nom as nomE, etudiant.prenom as prenomE, note FROM competence INNER JOIN notes ON notes.idC=competence.idC INNER JOIN etudiant ON etudiant.idE=notes.idE";
-         if(isset($_GET['classe'])){
+         if(isset($_GET['cours'])){
              $query="SELECT * FROM etudiant INNER JOIN appartenir ON etudiant.idE=appartenir.idE WHERE idC='".$_GET['classe']."' ORDER BY nom";
-         }
-         else{
-             $query="SELECT * FROM etudiant ORDER BY nom";
-         }
+         
+         
 		
 		
 		$stmt=$pdo->query($query);
@@ -107,6 +127,7 @@ include('includes/haut.inc.php');
          
 			<?php
 		}
+         }
 		?>
 	</table> 
     

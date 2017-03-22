@@ -8,21 +8,20 @@ if (isset($_POST['nom'])  && !empty($_POST['nom']) && isset($_POST['prenom']) &&
 	$prep->bindValue(':nom', $_POST['nom']);
 	$prep->bindValue(':prenom', $_POST['prenom']);
     $prep->bindValue(':login', strtolower($_POST['nom'].".".$_POST['prenom']));
-     $prep->bindValue(':mdp', strtolower($_POST['nom'].".".$_POST['prenom']));
+     $prep->bindValue(':mdp', md5(strtolower($_POST['nom'].".".$_POST['prenom'])));
 	$prep->execute();
     
-    $query="SELECT idE FROM etudiant WHERE nom='".$_POST['nom']."' AND prenom='".$_POST['prenom']."'";
-    $stmt=$pdo->query($query);
     
     
+    foreach($_POST['classe'] as $key => $classe){
+        $query="SELECT idE FROM etudiant WHERE idE=@@identity";
+        $stmt=$pdo->query($query);
 		while ($data = $stmt->fetch()) {
-        
-        //$classe= explode(" ",  $_POST['classe']);
-        $query1="INSERT INTO appartenir (idC, idE) VALUES (:idC, :idE)";
-        $prep1 = $pdo->prepare($query1);
-        $prep1->bindValue(':idC', $_POST['classe']/*$classe[0]*/);
-	    $prep1->bindValue(':idE', $data['idE']);
-        $prep1->execute();
+            $query="INSERT INTO appartenir VALUES (".$classe.", ".$data['idE'].")";
+            $prep = $pdo->prepare($query);
+            $prep->execute();
+                
+        }
     }
     
 }

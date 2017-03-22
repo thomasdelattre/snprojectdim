@@ -30,7 +30,7 @@ if(isset($_GET['usern']) && isset($_GET['mdp']))
             header('Location:index.php');
         }
 
-                    else
+else
          {
         $query = "SELECT * FROM etudiant where login='$email' && mdp='$mdp'";
         $stmt = $pdo->query($query);
@@ -38,7 +38,7 @@ if(isset($_GET['usern']) && isset($_GET['mdp']))
         {
             $idE=$data['idE'];
             $sid=md5($email.$mdp.time());
-            setcookie("CookieConnection",$sid);
+            setcookie("CookieConnectionEtu",$sid);
 
             $query = 'UPDATE  etudiant SET sid=:sid where idE= :idE';
                 $prep = $pdo->prepare($query);

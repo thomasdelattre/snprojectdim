@@ -1,6 +1,6 @@
 <?php
 include ('includes/connexion.inc.php');
-include('includes/haut.inc.php');
+include('includes/haut.inc.etu.php');
 ?>
 
 <div class="row" id="headerPage">
