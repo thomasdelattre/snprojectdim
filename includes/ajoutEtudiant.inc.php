@@ -51,6 +51,7 @@
     </form>
     <form style="width:50%" action="traitement/supprEtudiant.php" method="post">
         <H1>Supprimer un étudiant</H1>
+        </br>
         <div class="button-group" style="position: relative; top:0; width:30%">
                         <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" style="width:100%;">
                             <span style="float:left;font-size:1.3em">Etudiants</span> 
@@ -68,6 +69,7 @@
                             <?php } ?>
                         </ul>
             </div>
+            </br>
             <input type="submit" class="btn btn-danger" value="Supprimer" />
 
     </form>
