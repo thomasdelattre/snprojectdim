@@ -1,14 +1,15 @@
 <?php
 include ('includes/connexion.inc.co.php');
+include('includes/haut.inc.login.php');
 setcookie("CookieConnection",'',time()+300);
 
 //Traitement de connexion 
 $messagerr='';
 $idE="1";
-if(isset($_GET['usern']) && isset($_GET['mdp']))
+if(isset($_POST['usern']) && isset($_POST['mdp']))
 {  
-    $email =$_GET['usern'];
-    $mdp=$_GET['mdp'];
+    $email =$_POST['usern'];
+    $mdp=$_POST['mdp'];
     $mdp=md5($mdp);
 
     if($email!=''&&$mdp!='')
@@ -27,7 +28,7 @@ if(isset($_GET['usern']) && isset($_GET['mdp']))
                 $prep->bindValue(':id', $id);
                 $prep->execute();
 
-            header('Location:index.php');
+            header('Location:cours.php');
         }
 
 else
@@ -159,16 +160,16 @@ img
 <div class="col-md-4 connexion">
 	<div class="login">
     <h1>Connexion</h1>
-    <form method="get" action="login.php">
+    <form method="post" action="login.php">
         <input type="text" name="usern" placeholder="Username" required="required" />
         <input type="password" name="mdp" placeholder="Password" required="required" />
         <button type="submit" class="btn btn-primary btn-block btn-large">Se connecter</button>
         <label class="erreur"><?php echo $messagerr ;?></label>
     </form>
-    </diV>
+    </div>
   
     <script src="js/index.js"></script>
-</diV>	
+</div>	
 </div>
 
 <?php

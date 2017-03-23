@@ -26,17 +26,12 @@
     <div class="container-fluid">
         <div class="site-pusher">
 
+
     <header>
         <div id="header" >
            <a href="#" id="bouton-hamburger" class="glyphicon glyphicon-menu-hamburger"></a>
            <nav id="menu">  
-               <a class="menuPc" href="cours.php">Cours</a>
-               <a class="menuPc" href="competences.php">Comp&eacute;tences</a>
-               <a class="menuPc" href="evaluations.php">Evaluations</a>
-               <a class="menuPc" href="etudiants.php">Etudiants</a>
-               <a class="menuPc" href="administration.php">Administration</a>
-               <a class="menuPc" href="notes.php">Notation</a>
-               <a href="traitement/deconnexion">Deconnexion</a>
+               <span>Système de notation par compétence</span>
            </nav>
        </div>
    </header>

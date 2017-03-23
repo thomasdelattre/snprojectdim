@@ -114,11 +114,13 @@ tr:nth-child(odd){
 	background-color: #2E2E2E;
 	width:100%;
 	margin-top: 40px;
-    position: absolute;
-    top:100%;
 }
 
 #footer span{
+	color:white;
+}
+
+#menu span{
 	color:white;
 }
 

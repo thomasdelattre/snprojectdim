@@ -26,27 +26,13 @@
     <div class="container-fluid">
         <div class="site-pusher">
 
-    <!-- Header -->
-   <!-- <header>
-        <div id="header" class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
-         <nav id="menu" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li class="hidden"><a href="#page-top"></a></li>
-                <li class="page-scroll"><a href="#">Accueil</a></li>
-                <li><a href="#">Classes</a></li>
-                <li><a href="#">Comp&eacute;tences</a></li>
-                <li><a href="#">Evaluations</a></li>
-                <li><a href="#">Etudiants</a></li>
-            </ul>
-        </nav>
-        </div>
-    </header>-->
 
     <header>
         <div id="header" >
            <a href="#" id="bouton-hamburger" class="glyphicon glyphicon-menu-hamburger"></a>
            <nav id="menu">  
-               
+               <a href="changeMdp.php">Changer votre mot de passe</a>
+               <a href="traitement/deconnexion" style="margin-left:20%">Deconnexion</a>
            </nav>
        </div>
    </header>

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Mar 21 Mars 2017 à 15:27
+-- Généré le :  Jeu 23 Mars 2017 à 13:40
 -- Version du serveur :  5.7.11
 -- Version de PHP :  5.6.19
 
@@ -19,6 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Base de données :  `snproject`
 --
+CREATE DATABASE IF NOT EXISTS `snproject` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `snproject`;
 
 -- --------------------------------------------------------
 
@@ -38,7 +40,24 @@ CREATE TABLE `appartenir` (
 INSERT INTO `appartenir` (`idC`, `idE`) VALUES
 (2, 16),
 (2, 17),
-(5, 19);
+(8, 20),
+(8, 21),
+(8, 22),
+(8, 23),
+(8, 24),
+(8, 25),
+(8, 26),
+(9, 27),
+(9, 28),
+(9, 29),
+(9, 30),
+(9, 31),
+(9, 32),
+(9, 33),
+(9, 34),
+(9, 35),
+(8, 36),
+(2, 37);
 
 -- --------------------------------------------------------
 
@@ -56,8 +75,21 @@ CREATE TABLE `appliquer` (
 --
 
 INSERT INTO `appliquer` (`idComp`, `idCours`) VALUES
-(2, 4),
-(2, 5);
+(4, 6),
+(3, 6),
+(5, 6),
+(6, 6),
+(7, 7),
+(8, 7),
+(9, 7),
+(10, 8),
+(11, 8),
+(12, 8),
+(13, 11),
+(14, 11),
+(15, 11),
+(16, 10),
+(17, 9);
 
 -- --------------------------------------------------------
 
@@ -76,11 +108,9 @@ CREATE TABLE `classe` (
 --
 
 INSERT INTO `classe` (`idClasse`, `libelle`, `idP`) VALUES
-(4, 'Test', 1),
 (2, 'TD1 année 2', 2),
-(5, 'Classe 1', 1),
-(6, 'Classe 2', 1),
-(7, 'Classe 3', 1);
+(9, 'BTS SIO', 1),
+(8, 'LP DIM', 1);
 
 -- --------------------------------------------------------
 
@@ -100,7 +130,21 @@ CREATE TABLE `competence` (
 --
 
 INSERT INTO `competence` (`idC`, `libelle`, `idP`, `coef`) VALUES
-(2, 'Test comp', 1, 3);
+(3, 'Servlet', 1, 1),
+(4, 'Design', 1, 1),
+(5, 'Commentaires', 1, 1),
+(6, 'Beans', 1, 1),
+(7, 'Objet', 1, 1),
+(8, 'Fonctions', 1, 1),
+(9, 'Soin du code', 1, 1),
+(10, 'Oral', 1, 1),
+(11, 'Ecrit', 1, 1),
+(12, 'Ecouté', 1, 1),
+(13, 'Comp 1', 2, 1),
+(14, 'comp 2 3', 2, 1),
+(15, 'comp 3 3', 2, 1),
+(16, 'Comp 1 2', 2, 1),
+(17, 'comp 2354345', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -118,13 +162,12 @@ CREATE TABLE `contenir` (
 --
 
 INSERT INTO `contenir` (`idClasse`, `idCours`) VALUES
-(4, 4),
-(5, 3),
-(5, 4),
-(5, 5),
-(6, 3),
-(7, 4),
-(7, 5);
+(2, 9),
+(2, 10),
+(2, 11),
+(8, 6),
+(8, 8),
+(9, 7);
 
 -- --------------------------------------------------------
 
@@ -144,9 +187,12 @@ CREATE TABLE `cours` (
 --
 
 INSERT INTO `cours` (`idC`, `libelle`, `description`, `idP`) VALUES
-(3, 'Cours 1', '', 1),
-(4, 'Cours 2', '', 1),
-(5, 'Cours 3', '', 1);
+(6, 'JEE', '', 1),
+(7, 'Java', '', 1),
+(8, 'Anglais', '', 1),
+(9, 'Cours 1', '', 2),
+(10, 'Cours 2', '', 2),
+(11, 'cours 3', '', 2);
 
 -- --------------------------------------------------------
 
@@ -159,18 +205,37 @@ CREATE TABLE `etudiant` (
   `nom` char(60) CHARACTER SET latin1 DEFAULT NULL,
   `prenom` char(60) CHARACTER SET latin1 DEFAULT NULL,
   `login` char(80) CHARACTER SET latin1 DEFAULT NULL,
-  `mdp` char(60) CHARACTER SET latin1 DEFAULT NULL
+  `mdp` char(60) CHARACTER SET latin1 DEFAULT NULL,
+  `sid` varchar(250) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 --
 -- Contenu de la table `etudiant`
 --
 
-INSERT INTO `etudiant` (`idE`, `nom`, `prenom`, `login`, `mdp`) VALUES
-(15, 'Delattre', 'Thomas', 'delattre.thomas', 'delattre.thomas'),
-(16, 'Delattre', 'Thomas', 'delattre.thomas', 'delattre.thomas'),
-(17, 'Essombe', 'Zacharie', 'essombe.zacharie', 'essombe.zacharie'),
-(19, 'Amrani', 'Ayman', 'amrani.ayman', 'amrani.ayman');
+INSERT INTO `etudiant` (`idE`, `nom`, `prenom`, `login`, `mdp`, `sid`) VALUES
+(15, 'Delattre', 'Thomas', 'delattre.thomas', 'delattre.thomas', ''),
+(16, 'Delattre', 'Thomas', 'delattre.thomas', 'delattre.thomas', ''),
+(17, 'Essombe', 'Zacharie', 'essombe.zacharie', 'essombe.zacharie', ''),
+(19, 'Amrani', 'Ayman', 'amrani.ayman', 'amrani.ayman', ''),
+(20, 'Delattre', 'Thomas', 'delattre.thomas', 'delattre.thomas', ''),
+(21, 'Essombe', 'Zacharie', 'essombe.zacharie', 'essombe.zacharie', ''),
+(22, 'Amrani', 'Ayman', 'amrani.ayman', 'amrani.ayman', ''),
+(23, 'Leleu', 'Sylvain', 'leleu.sylvain', 'leleu.sylvain', ''),
+(24, 'Tahrour', 'Djalel', 'tahrour.djalel', 'tahrour.djalel', ''),
+(25, 'Mathias', 'Anais', 'mathias.anais', 'mathias.anais', ''),
+(26, 'Hmain', 'Ismael', 'hmain.ismael', 'hmain.ismael', ''),
+(27, 'Demaziere', 'Arthur', 'demaziere.arthur', 'demaziere.arthur', ''),
+(28, 'Chretien', 'Simon', 'chretien.simon', 'chretien.simon', ''),
+(29, 'Hakem', 'Raphael', 'hakem.raphael', 'hakem.raphael', ''),
+(30, 'Specq', 'Florian', 'specq.florian', 'specq.florian', ''),
+(31, 'Wallyn', 'Vincent', 'wallyn.vincent', 'wallyn.vincent', ''),
+(32, 'Popieul', 'Clement', 'popieul.clement', 'popieul.clement', ''),
+(33, 'Delarue', 'Lucien', 'delarue.lucien', 'delarue.lucien', ''),
+(34, 'Baroni', 'Hubert', 'baroni.hubert', 'baroni.hubert', ''),
+(35, 'Lecerf', 'Margaux', 'lecerf.margaux', 'ab4f63f9ac65152575886860dde480a1', 'ad145fb5d4daf3d95a22c199df7e513c'),
+(36, 'Alba', 'Thomas', 'alba.thomas', '96e10eb78be43db2dbde3547a7265d0b', ''),
+(37, 'Amrani', 'Zacharie', 'amrani.zacharie', '4742bac858a212b8dc7b0e182d75ce40', 'b0503f8ee4f6b73d4dd768f6e553f0c7');
 
 -- --------------------------------------------------------
 
@@ -192,9 +257,7 @@ CREATE TABLE `notes` (
 INSERT INTO `notes` (`note`, `dateN`, `idE`, `idC`) VALUES
 ('rr', NULL, 1, 4),
 ('rr', NULL, 1, 7),
-('vv', NULL, 3, 2),
 ('rr', '2017-03-13', 3, 4),
-('vv', NULL, 4, 2),
 ('vv', NULL, 4, 4),
 ('rr', NULL, 4, 5),
 ('rr', '2017-03-09', 4, 6),
@@ -202,7 +265,37 @@ INSERT INTO `notes` (`note`, `dateN`, `idE`, `idC`) VALUES
 ('rr', '2017-03-09', 6, 8),
 ('vv', NULL, 12, 10),
 ('rr', NULL, 12, 11),
-('vv', NULL, 13, 12);
+('vv', NULL, 13, 12),
+('vv', NULL, 20, 10),
+('vv', NULL, 20, 11),
+('vv', NULL, 20, 12),
+('vv', NULL, 27, 7),
+('v', NULL, 27, 8),
+('vv', NULL, 27, 9),
+('rr', NULL, 28, 7),
+('rr', NULL, 28, 8),
+('rr', NULL, 28, 9),
+('rr', NULL, 29, 7),
+('vv', NULL, 29, 8),
+('r', NULL, 29, 9),
+('rr', NULL, 30, 7),
+('r', NULL, 30, 8),
+('v', NULL, 30, 9),
+('v', NULL, 31, 7),
+('rr', NULL, 31, 8),
+('vv', NULL, 31, 9),
+('rr', NULL, 32, 7),
+('rr', NULL, 32, 8),
+('rr', NULL, 32, 9),
+('v', NULL, 33, 7),
+('r', NULL, 33, 8),
+('vv', NULL, 33, 9),
+('rr', NULL, 34, 7),
+('rr', NULL, 34, 8),
+('rr', NULL, 34, 9),
+('vv', NULL, 35, 7),
+('vv', NULL, 35, 8),
+('vv', NULL, 35, 9);
 
 -- --------------------------------------------------------
 
@@ -225,8 +318,8 @@ CREATE TABLE `prof` (
 --
 
 INSERT INTO `prof` (`idP`, `nom`, `prenom`, `nomEtablissement`, `login`, `mdp`, `sid`) VALUES
-(1, 'Leuleu', 'Sylvain', 'IUT Calais', 'leuleu.sylvain', 'ab4f63f9ac65152575886860dde480a1', 'f6ba06b4f3588584256d67c61539e38e'),
-(2, 'Delattre', 'Thomas', 'IUT Calais', 'delattre.thomas', 'ab4f63f9ac65152575886860dde480a1', '235739e8a9d893a8e08082c5d2c926ad');
+(1, 'Leuleu', 'Sylvain', 'IUT Calais', 'leuleu.sylvain', 'ab4f63f9ac65152575886860dde480a1', '7bca6cc64e66ae7f19217b59dac6a624'),
+(2, 'Delattre', 'Thomas', 'IUT Calais', 'delattre.thomas', 'ab4f63f9ac65152575886860dde480a1', 'dc2f1fd204f5e6c0fadfc074efd7693f');
 
 --
 -- Index pour les tables exportées
@@ -292,22 +385,22 @@ ALTER TABLE `prof`
 -- AUTO_INCREMENT pour la table `classe`
 --
 ALTER TABLE `classe`
-  MODIFY `idClasse` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `idClasse` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT pour la table `competence`
 --
 ALTER TABLE `competence`
-  MODIFY `idC` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idC` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 --
 -- AUTO_INCREMENT pour la table `cours`
 --
 ALTER TABLE `cours`
-  MODIFY `idC` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idC` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT pour la table `etudiant`
 --
 ALTER TABLE `etudiant`
-  MODIFY `idE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `idE` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 --
 -- AUTO_INCREMENT pour la table `prof`
 --

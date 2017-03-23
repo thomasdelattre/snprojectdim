@@ -1,11 +1,12 @@
 <?php
 include ('includes/connexion.inc.php');
+if($connecterP==true){
 include('includes/haut.inc.php');
 ?>
 
 <div class="row" id="headerPage">
 	<h2 class=" titreIndex">Bonjour M / Mme <?=$nomP." ".$prenomP?></h2>
-	<button type="button" class="btn btn-primary" id="boutonAjoutClasse">Ajouter une &eacute;valuation</button>
+	<a type="button" class="btn btn-primary" id="boutonAjoutClasse" href="notes.php">Ajouter une &eacute;valuation</a>
 	<div id="comboEvaluation">
         <form action="evaluations.php"  method="get" style="display:flex;flex-direction:row">
             <select name="classe" onchange="this.form.submit()" class="btn btn-default fullWidth">
@@ -52,7 +53,10 @@ include('includes/haut.inc.php');
 
 
 <div class="tableauEvaluations row" >
-     <?php if(isset($_GET['cours'])){ ?>
+     <?php if(isset($_GET['cours'])){ 
+    $notesClasse=array();
+   
+    ?>
 	 <table style="font-size: 1.2em">
 		<tr>
 			<th>Nom pr&eacute;nom</th>
@@ -75,11 +79,17 @@ include('includes/haut.inc.php');
 			}
             }
 			?>
+            <th>Moyenne générale</th>
 		</tr>
 		<?php 
-		//$query="SELECT etudiant.nom as nomE, etudiant.prenom as prenomE, note FROM competence INNER JOIN notes ON notes.idC=competence.idC INNER JOIN etudiant ON etudiant.idE=notes.idE";
          if(isset($_GET['cours'])){
-             $query="SELECT * FROM etudiant INNER JOIN appartenir ON etudiant.idE=appartenir.idE WHERE idC='".$_GET['classe']."' ORDER BY nom";
+             $query="SELECT * FROM etudiant 
+             INNER JOIN appartenir ON etudiant.idE=appartenir.idE 
+             INNER JOIN classe ON classe.idClasse=appartenir.idC
+             INNER JOIN contenir ON contenir.idClasse=classe.idClasse
+             WHERE classe.idClasse='".$_GET['classe']."' 
+             AND contenir.idCours='".$_GET['cours']."'
+             ORDER BY nom";
          
          
 		
@@ -90,13 +100,18 @@ include('includes/haut.inc.php');
 			<tr>
 				<td><?php echo $data['nom']." ".$data['prenom'] ?></td>
 				<?php 
-				$queryN="SELECT * FROM notes INNER JOIN competence ON notes.idC=competence.idC WHERE idE='".$data['idE']."'";
+				$queryN="SELECT * FROM notes 
+                INNER JOIN competence ON notes.idC=competence.idC 
+                INNER JOIN appliquer ON competence.idC=appliquer.idComp
+                WHERE idE='".$data['idE']."'
+                AND appliquer.idCours='".$_GET['cours']."'";
 				$stmtN=$pdo->query($queryN);
                 $i=0;
                 $notes=array();
                 $libelle=array();
 				while ($dataN = $stmtN->fetch()) {
                     $notes[$i]=$dataN['note'];
+                    $coef[$i]=$dataN['coef'];
                     $libelle[$i]=$dataN['libelle'];
                    
                     $i++;
@@ -125,15 +140,53 @@ include('includes/haut.inc.php');
                     </td>
                 <?php
                     }
-                
-                
+                $moyenne=0;
+                $nbreNotes=0;
+                $coefTotal=0;
+                foreach($notes as $key => $note){
+                    $nbreNotes++;
+                    if($note=="vv"){
+                        
+                        $moyenne=$moyenne+4*$coef[$key];
+                    }   
+                    else if($note=="v"){
+                         $moyenne=$moyenne+3*$coef[$key];
+                    }
+                    else if($note=="r"){
+                         $moyenne=$moyenne+2*$coef[$key];
+                    }
+                    else if($note=="rr"){
+                         $moyenne=$moyenne+1*$coef[$key];
+                    }
+                    $coefTotal+=$coef[$key];
+                }
+                if($nbreNotes==0){
+                    $moyenne="-";
+                }
+                else{
+                    $moyenne=($moyenne/$coefTotal)*5;
+                    array_push($notesClasse,$moyenne);
+                }
                 ?> 
+                <td><?php if($nbreNotes!=0){echo number_format($moyenne, 2);}else{echo $moyenne;}?></td>
 			</tr>
-         
+            
 			<?php
 		}
          }
+                $moyenneClasse=0;
+                $nbreNoteM=0;
+                foreach($notesClasse as $noteC){
+                    $nbreNoteM++;
+                    $moyenneClasse+=$noteC;
+                }
+                if($nbreNoteM!=0){
+                    $moyenneClasse=$moyenneClasse/$nbreNoteM;
+                }
 		?>
+         <tr>
+             <td colspan="<?= $nbreC+2 ?>"><?php if($nbreNoteM!=0){echo "Moyenne générale de la classe : ".number_format($moyenneClasse, 2);}else{echo "Pas encore de notes pour cette classe";}?></td>
+         </tr>
 	</table> 
     <?php }else if(!isset($_GET['classe'])){ ?>
         <h1 style="color:red" class="textCenter">Veuillez selectionner une classe</h1>
@@ -142,60 +195,13 @@ include('includes/haut.inc.php');
     <?php } ?>
      
 </div>
-<!-- Div contenant la pagination-->
-<div class="divPagination">
-	<nav aria-label="Page navigation">
-		<ul class="pagination pagination-lg ">
-
-			<!-- Si l'utilisateur n'est pas sur la premiere page, affiche le bouton de page precedente-->
-			<?php //if(isset($_GET['page']) && $_GET['page']!=1){ ?>
-			<li>
-				<a href="index.php?page=<?php //echo $_GET['page']-1 ?>" aria-label="Previous">
-					<span aria-hidden="true">&laquo;</span>
-				</a>
-			</li>
-			<?php //} ?>
-
-
-			<?php 
-			//on recupere le nombre de message afin de calculer le nombre de pages
-			//$query = 'SELECT count(id) AS nbreId FROM messages'; 
-			//$stmt=$pdo->query($query);
-			//while ($data = $stmt->fetch()) {
-			//	$nbreMessages=$data['nbreId'];
-			//}
-
-			//$nbrePages=($nbreMessages) ? ceil($nbreMessages/$mpp) : 1;
-
-			//on crée un bouton pour chaque page présente
-			//for($i=0;$i<$nbrePages;$i++){
-			?>
-			<li><a href="index.php?page=<?php //echo $i+1 ?>">  1 <!-- <?= $i+1 ?> -->  </a></li>
-			<?php //} ?>
-
-			<!-- Si l'utilisateur n'est pas sur la derniere page, affiche le bouton de page suivante -->
-			<?php 
-				//if(!isset($_GET['page']) || $_GET['page']<$nbrePages){ 
-				//if($nbreMessages>$mpp){?>
-				<li>
-					<!-- balise a du bouton suivant qui renvoie a la page 2 si le numero de page n'est pas encore defini, et a la page suivante si le numero de page est defini -->
-					<a href="index.php?page=<?php 
-						//if(isset($_GET['page']) && $_GET['page']!=1){
-						//	echo $_GET['page']+1;
-						//}else{
-						//	echo 2;
-						//} ?>" aria-label="Next">
-						<span aria-hidden="true">&raquo;</span>
-					</a>
-				</li>
-				<?php //} } ?>
-			</ul>
-		</nav>
-	</div>
 
 
 
 
 	<?php
 	include('includes/bas.inc.php');
+}else{
+    header('Location: login.php');  
+}
 	?>

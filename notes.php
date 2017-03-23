@@ -1,5 +1,6 @@
 <?php
 include('includes/connexion.inc.php');
+if($connecterP==true){
 include('includes/haut.inc.php');
 $nbNote=0;
 ?>
@@ -70,7 +71,6 @@ $nbNote=0;
              <?php } ?>
 		</tr>
 		<?php 
-		//$query="SELECT etudiant.nom as nomE, etudiant.prenom as prenomE, note FROM competence INNER JOIN notes ON notes.idC=competence.idC INNER JOIN etudiant ON etudiant.idE=notes.idE";
 		 if(isset($_GET['classe'])){
              $query="SELECT * FROM etudiant 
              INNER JOIN appartenir ON etudiant.idE=appartenir.idE 
@@ -152,4 +152,7 @@ $nbNote=0;
 
 <?php
 include('includes/bas.inc.php');
+}else{
+    header('Location: login.php');  
+}
 ?>
