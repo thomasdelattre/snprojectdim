@@ -23,7 +23,7 @@ if(isset($_COOKIE['CookieConnection']))
 	}
 
 }
-else if(isset($_COOKIE['CookieConnectionEtu'])){
+if(isset($_COOKIE['CookieConnectionEtu'])){
 	$connecterEtu=true;
 	$cookie=$_COOKIE['CookieConnectionEtu'];
 	$query = 'SELECT * FROM  etudiant where sid=:sid ';
@@ -34,7 +34,6 @@ else if(isset($_COOKIE['CookieConnectionEtu'])){
 	if($data=$prep->fetch())
 	{
 	    $idE=$data['idE'];
-		$connecter=false;
         $nomE=$data['nom'];
         $prenomE=$data['prenom'];
 

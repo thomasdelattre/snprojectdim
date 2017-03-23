@@ -2,6 +2,7 @@
 include ('includes/connexion.inc.co.php');
 include('includes/haut.inc.login.php');
 setcookie("CookieConnection",'',time()+300);
+setcookie("CookieConnectionEtu",'',time()+300);
 
 //Traitement de connexion 
 $messagerr='';

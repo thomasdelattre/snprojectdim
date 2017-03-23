@@ -35,7 +35,7 @@
                    <a class="menuPc" href="etudiants.php">Etudiants</a>
                    <a class="menuPc" href="administration.php">Administration</a>
                    <a class="menuPc" href="notes.php">Notation</a>
-                   <a href="traitement/deconnexion">Deconnexion</a>
+                   <a href="traitement/deconnexion.php">Deconnexion</a>
                </nav>
            </div>
        </header>

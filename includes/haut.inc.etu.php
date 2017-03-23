@@ -29,7 +29,7 @@
                <a href="#" id="bouton-hamburger" class="glyphicon glyphicon-menu-hamburger"></a>
                <nav id="menu">  
                    <a href="changeMdp.php">Changer votre mot de passe</a>
-                   <a href="traitement/deconnexion" style="margin-left:20%">Deconnexion</a>
+                   <a href="traitement/deconnexion.php" style="margin-left:20%">Deconnexion</a>
                </nav>
            </div>
        </header>
